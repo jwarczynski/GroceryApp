@@ -18,10 +18,11 @@
 
     <ItemGroup>
         <ProjectReference Include="..\GroceryApp.BLC\GroceryApp.BLC.csproj" />
-        <ProjectReference Include="..\GroceryApp.DAOMock1\GroceryApp.DAOMock1.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
     </ItemGroup>
 

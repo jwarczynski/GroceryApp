@@ -4,6 +4,6 @@ public interface IDAO
 {
     IEnumerable<IGrocery> GetAllGroceries();
     IEnumerable<IProduct> GetAllProducts();
-    IGrocery CreateGrocery();
-    IProduct CreateProduct();
+    IGrocery SaveGrocery(IGrocery grocery);
+    IProduct SaveProduct(IProduct product);
 }

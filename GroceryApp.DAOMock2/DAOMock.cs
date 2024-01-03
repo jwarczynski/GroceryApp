@@ -6,8 +6,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock2;
 
 public class DAOMock : IDAO
 {
-    private List<IGrocery> _groceries;
-    private List<IProduct> _products;
+    private readonly List<IGrocery> _groceries;
+    private readonly List<IProduct> _products;
 
     public DAOMock()
     {
@@ -63,13 +63,15 @@ public class DAOMock : IDAO
         return _products;
     }
 
-    public IGrocery CreateGrocery()
+    public IGrocery SaveGrocery(IGrocery grocery)
     {
-        return new Grocery();
+        _groceries.Add(grocery);
+        return grocery;
     }
 
-    public IProduct CreateProduct()
+    public IProduct SaveProduct(IProduct product)
     {
-        return new Product();
+        _products.Add(product);
+        return product;
     }
 }

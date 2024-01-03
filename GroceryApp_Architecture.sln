@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryApp.BLC", "GroceryAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryApp.DAOMock2", "GroceryApp.DAOMock2\GroceryApp.DAOMock2.csproj", "{FF2F679E-6703-4494-9BFA-122283394EB3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GroceryApp.WPF", "GroceryApp.WPF\GroceryApp.WPF.csproj", "{7C1B9EE3-24E7-4B34-BBCA-5D678194E75A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{FF2F679E-6703-4494-9BFA-122283394EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF2F679E-6703-4494-9BFA-122283394EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF2F679E-6703-4494-9BFA-122283394EB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C1B9EE3-24E7-4B34-BBCA-5D678194E75A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1B9EE3-24E7-4B34-BBCA-5D678194E75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1B9EE3-24E7-4B34-BBCA-5D678194E75A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1B9EE3-24E7-4B34-BBCA-5D678194E75A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
