@@ -32,7 +32,19 @@ public class GroceryDao : IDAO
 
     public IProduct SaveProduct(IProduct product)
     {
-        _context.Products.Add((Product)product);
+        var grocery = _context.Groceries.ToList()[0];
+        Product productModel = new Product()
+        {
+            Name = product.Name,
+            Price = product.Price,
+            Category = product.Category,
+            Magnesium = product.Magnesium,
+            Potassium = product.Potassium,
+            Sodium = product.Sodium,
+            GroceryEntity = grocery
+        };
+        
+        _context.Products.Add(productModel);
         _context.SaveChanges();
         return product;
     }

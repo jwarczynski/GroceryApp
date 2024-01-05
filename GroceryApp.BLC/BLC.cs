@@ -36,4 +36,9 @@ public class BLC
     {
         return _dao.GetAllProducts();
     }
+    
+    public IProduct SaveProduct(IProduct product)
+    {
+        return _dao.SaveProduct(product);
+    }
 }
