@@ -43,7 +43,9 @@
             </StackPanel>
 
             <!-- DataGrid -->
-            <DataGrid Grid.Column="1" Name="ProductsDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid Grid.Column="1" Name="ProductsDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                      RowHeaderWidth="10" SelectionMode="Extended" AlternatingRowBackground="#FFC9ECBC" CanUserResizeRows="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" />
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
@@ -52,6 +54,13 @@
                     <DataGridTextColumn Header="Magnesium" Binding="{Binding Magnesium}" Width="*" />
                     <DataGridTextColumn Header="Potassium" Binding="{Binding Potassium}" Width="*" />
                     <DataGridTextColumn Header="Sodium" Binding="{Binding Sodium}" Width="*" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Remove" Click="Remove_Click" Background="#FF710808" Foreground="#FFF2F7F4" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -59,10 +68,10 @@
         <!-- Buttons Panel -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
             <Button Content="Add" Width="80" Margin="5" Click="Add_Click"/>
-            <Button Content="Remove" Width="80" Margin="5" Click="Remove_Click"/>
+            <Button Content="Remove" Width="80" Margin="5" Click="Remove_Click" Background="#FF940B0B" Foreground="#FFE8D6D6"/>
             <Button Content="Update" Width="80" Margin="5" Click="Update_Click"/>
         </StackPanel>
-        
+
         <!-- AddProductControl -->
         <local:AddProductControl x:Name="AddProductControl" Visibility="Collapsed" ProductSaved="AddProductControl_ProductSaved"/>
     </StackPanel>

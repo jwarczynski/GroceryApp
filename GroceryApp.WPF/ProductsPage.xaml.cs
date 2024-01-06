@@ -36,7 +36,10 @@ public partial class ProductsPage : Page
 
     private void Remove_Click(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        var button = (Button)sender;
+        var product = (IProduct)button.DataContext;
+        _blc.DeleteProduct(product);
+        _products.Remove(product);
     }
 
     private void Update_Click(object sender, RoutedEventArgs e)
@@ -62,8 +65,8 @@ public partial class ProductsPage : Page
 
     private void AddProductControl_ProductSaved(object? sender, ProductEventArgs e)
     {
-        _blc.SaveProduct(e.Product);
-        _products.Add(e.Product);
-        MessageBox.Show($"Product saved: {e.Product.Name}");
+        var saved = _blc.SaveProduct(e.Product);
+        _products.Add(saved);
+        MessageBox.Show($"Product saved: {saved.Name}");
     }
 }
