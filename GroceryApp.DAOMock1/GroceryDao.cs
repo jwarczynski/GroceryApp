@@ -23,13 +23,14 @@ public class GroceryDao : IDAO
         return _context.Products.AsEnumerable();
     }
 
-    public void SaveGrocery(IGrocery grocery)
+    public IGrocery SaveGrocery(IGrocery grocery)
     {
-        _context.Groceries.Add((Grocery)grocery);
+        var saved = _context.Groceries.Add((Grocery)grocery);
         _context.SaveChanges();
+        return saved.Entity;
     }
 
-    public void SaveProduct(IProduct product)
+    public IProduct SaveProduct(IProduct product)
     {
         var grocery = _context.Groceries.ToList()[0];
         Product productModel = new Product()
@@ -43,8 +44,9 @@ public class GroceryDao : IDAO
             GroceryEntity = grocery
         };
 
-        _context.Products.Add(productModel);
+        var saved = _context.Products.Add(productModel);
         _context.SaveChanges();
+        return saved.Entity;
     }
 
     public void EditGrocery(IGrocery grocery)
@@ -59,11 +61,6 @@ public class GroceryDao : IDAO
     public void DeleteGrocery(IGrocery grocery)
     {
         _context.Groceries.Remove((Grocery)grocery);
-    }
-
-    public void DeleteProduct(IProduct product)
-    {
-        _context.Products.Remove((Product)product);
     }
 
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
@@ -97,5 +94,15 @@ public class GroceryDao : IDAO
         }
 
         return query;
+    }
+
+    public void DeleteProduct(IProduct product)
+    {
+        var productToRemove = _context.Products.FirstOrDefault(p => p.Id == product.Id);
+        if (productToRemove != null)
+        {
+            _context.Products.Remove(productToRemove);
+            _context.SaveChanges();
+        }
     }
 }

@@ -63,14 +63,16 @@ public class DAOMock : IDAO
         return _products;
     }
 
-    public void SaveGrocery(IGrocery grocery)
+    public IGrocery SaveGrocery(IGrocery grocery)
     {
         _groceries.Add(grocery);
+        return grocery;
     }
 
-    public void SaveProduct(IProduct product)
+    public IProduct SaveProduct(IProduct product)
     {
         _products.Add(product);
+        return product;
     }
 
     public void EditGrocery(IGrocery grocery)
@@ -100,6 +102,11 @@ public class DAOMock : IDAO
     }
 
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RemoveProduct(IProduct product)
     {
         throw new NotImplementedException();
     }
