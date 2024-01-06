@@ -62,8 +62,8 @@ public partial class ProductsPage : Page
 
     private void AddProductControl_ProductSaved(object? sender, ProductEventArgs e)
     {
-        var product = _blc.SaveProduct(e.Product);
-        _products.Add(product);
-        MessageBox.Show($"Product saved: {product.Name}");
+        _blc.SaveProduct(e.Product);
+        _products.Add(e.Product);
+        MessageBox.Show($"Product saved: {e.Product.Name}");
     }
 }

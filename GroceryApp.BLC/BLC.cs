@@ -5,7 +5,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.BLC;
 
 public class BLC
 {
-    private IDAO _dao;
+    private readonly IDAO _dao;
 
     public BLC(string libraryName)
     {
@@ -36,10 +36,35 @@ public class BLC
     {
         return _dao.GetAllProducts();
     }
-    
-    public IProduct SaveProduct(IProduct product)
+
+    public void SaveGrocery(IGrocery grocery)
     {
-        return _dao.SaveProduct(product);
+        _dao.SaveGrocery(grocery);
+    }
+
+    public void SaveProduct(IProduct product)
+    {
+        _dao.SaveProduct(product);
+    }
+
+    public void EditGrocery(IGrocery grocery)
+    {
+        _dao.EditGrocery(grocery);
+    }
+
+    public void EditProduct(IProduct product)
+    {
+        _dao.EditProduct(product);
+    }
+
+    public void DeleteGrocery(IGrocery grocery)
+    {
+        _dao.DeleteGrocery(grocery);
+    }
+
+    public void DeleteProduct(IProduct product)
+    {
+        _dao.DeleteProduct(product);
     }
 
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)

@@ -4,7 +4,11 @@ public interface IDAO
 {
     IEnumerable<IGrocery> GetAllGroceries();
     IEnumerable<IProduct> GetAllProducts();
-    IGrocery SaveGrocery(IGrocery grocery);
-    IProduct SaveProduct(IProduct product);
     IEnumerable<IProduct> GetProductsByFilter(IFilter filter);
+    void SaveGrocery(IGrocery grocery);
+    void SaveProduct(IProduct product);
+    void EditGrocery(IGrocery grocery);
+    void EditProduct(IProduct product);
+    void DeleteGrocery(IGrocery grocery);
+    void DeleteProduct(IProduct product);
 }

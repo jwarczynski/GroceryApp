@@ -6,8 +6,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock2;
 
 public class DAOMock : IDAO
 {
-    private readonly List<IGrocery> _groceries;
-    private readonly List<IProduct> _products;
+    private List<IGrocery> _groceries;
+    private List<IProduct> _products;
 
     public DAOMock()
     {
@@ -63,16 +63,40 @@ public class DAOMock : IDAO
         return _products;
     }
 
-    public IGrocery SaveGrocery(IGrocery grocery)
+    public void SaveGrocery(IGrocery grocery)
     {
         _groceries.Add(grocery);
-        return grocery;
     }
 
-    public IProduct SaveProduct(IProduct product)
+    public void SaveProduct(IProduct product)
     {
         _products.Add(product);
-        return product;
+    }
+
+    public void EditGrocery(IGrocery grocery)
+    {
+        var groceryToDelete = _groceries.FirstOrDefault(g => g.Id == grocery.Id);
+        if (groceryToDelete == null) return;
+        DeleteGrocery(groceryToDelete);
+        _groceries.Add(grocery);
+    }
+
+    public void EditProduct(IProduct product)
+    {
+        var productToDelete = _products.FirstOrDefault(g => g.Id == product.Id);
+        if (productToDelete == null) return; 
+        DeleteProduct(productToDelete);
+        _products.Add(product);
+    }
+
+    public void DeleteGrocery(IGrocery grocery)
+    {
+        _groceries.Remove(grocery);
+    }
+
+    public void DeleteProduct(IProduct product)
+    {
+        _products.Remove(product);
     }
 
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)

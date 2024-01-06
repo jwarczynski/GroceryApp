@@ -23,14 +23,13 @@ public class GroceryDao : IDAO
         return _context.Products.AsEnumerable();
     }
 
-    public IGrocery SaveGrocery(IGrocery grocery)
+    public void SaveGrocery(IGrocery grocery)
     {
         _context.Groceries.Add((Grocery)grocery);
         _context.SaveChanges();
-        return grocery;
     }
 
-    public IProduct SaveProduct(IProduct product)
+    public void SaveProduct(IProduct product)
     {
         var grocery = _context.Groceries.ToList()[0];
         Product productModel = new Product()
@@ -46,7 +45,25 @@ public class GroceryDao : IDAO
 
         _context.Products.Add(productModel);
         _context.SaveChanges();
-        return product;
+    }
+
+    public void EditGrocery(IGrocery grocery)
+    {
+        _context.Groceries.Update((Grocery)grocery);
+    }
+    public void EditProduct(IProduct product)
+    {
+        _context.Products.Update((Product)product);
+    }
+
+    public void DeleteGrocery(IGrocery grocery)
+    {
+        _context.Groceries.Remove((Grocery)grocery);
+    }
+
+    public void DeleteProduct(IProduct product)
+    {
+        _context.Products.Remove((Product)product);
     }
 
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
