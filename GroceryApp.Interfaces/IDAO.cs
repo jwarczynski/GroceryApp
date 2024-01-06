@@ -6,4 +6,5 @@ public interface IDAO
     IEnumerable<IProduct> GetAllProducts();
     IGrocery SaveGrocery(IGrocery grocery);
     IProduct SaveProduct(IProduct product);
+    IEnumerable<IProduct> GetProductsByFilter(IFilter filter);
 }

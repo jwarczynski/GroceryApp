@@ -41,4 +41,9 @@ public class BLC
     {
         return _dao.SaveProduct(product);
     }
+
+    public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
+    {
+        return _dao.GetProductsByFilter(filter);
+    }
 }

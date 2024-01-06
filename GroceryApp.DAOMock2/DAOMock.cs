@@ -74,4 +74,9 @@ public class DAOMock : IDAO
         _products.Add(product);
         return product;
     }
+
+    public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
+    {
+        throw new NotImplementedException();
+    }
 }

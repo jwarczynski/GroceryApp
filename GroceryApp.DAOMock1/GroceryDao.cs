@@ -43,9 +43,42 @@ public class GroceryDao : IDAO
             Sodium = product.Sodium,
             GroceryEntity = grocery
         };
-        
+
         _context.Products.Add(productModel);
         _context.SaveChanges();
         return product;
+    }
+
+    public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
+    {
+        var query = GetQuery(filter);
+        return query.ToList();
+    }
+
+    private IQueryable<Product> GetQuery(IFilter filter)
+    {
+        IQueryable<Product> query = _context.Products;
+
+        if (!string.IsNullOrEmpty(filter.Name))
+        {
+            query = query.Where(p => p.Name == filter.Name);
+        }
+
+        if (filter.Categories != null && filter.Categories.Any())
+        {
+            query = query.Where(p => filter.Categories.Contains(p.Category));
+        }
+
+        if (filter.MinPrice.HasValue)
+        {
+            query = query.Where(p => p.Price >= filter.MinPrice.Value);
+        }
+
+        if (filter.MaxPrice.HasValue)
+        {
+            query = query.Where(p => p.Price <= filter.MaxPrice.Value);
+        }
+
+        return query;
     }
 }
