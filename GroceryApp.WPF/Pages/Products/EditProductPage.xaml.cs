@@ -12,7 +12,8 @@ public partial class EditProductPage : Page
     public EditProductPage(IProduct product)
     {
         InitializeComponent();
-        ProductViewModel viewModel = new ProductViewModel { Product = product };
+        var productToEdit = product.Id == null ? product : BLCContainer.Instance.GetProductWithGrocery(product.Id.Value);
+        var viewModel = new ProductViewModel { Product = productToEdit };
         DataContext = viewModel;
     }
 

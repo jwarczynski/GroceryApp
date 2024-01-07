@@ -30,7 +30,7 @@ public partial class ProductsPage : Page
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
-        var detailPage = new EditProductPage(new Product());
+        var detailPage = new EditProductPage(_blc.GetProductTemplate());
         NavigationService?.Navigate(detailPage);
         // AddProductControl.Visibility = Visibility.Visible;
     }
