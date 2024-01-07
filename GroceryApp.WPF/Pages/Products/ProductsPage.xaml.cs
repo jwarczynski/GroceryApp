@@ -18,7 +18,11 @@ public partial class ProductsPage : Page
         (ProductCategory[])Enum.GetValues(typeof(ProductCategory));
 
     public ProductCategory SelectedCategory { get; set; }
+    private List<ProductCategory> SelectedCategories { get; set; } = new List<ProductCategory>();
+    
     public string? NameFilter { get; set; }
+    public float MinPrice { get; set;}
+    public float MaxPrice { get; set; }
 
     public ProductsPage()
     {
@@ -63,8 +67,11 @@ public partial class ProductsPage : Page
     {
         Filter myFilter = new Filter
         {
-            Categories = new List<ProductCategory> { SelectedCategory },
-            Name = NameFilter
+            // Categories = new List<ProductCategory> { SelectedCategory },
+            Categories = SelectedCategories,
+            Name = NameFilter,
+            MinPrice = MinPrice,
+            MaxPrice = MaxPrice
         };
         return myFilter;
     }
@@ -84,5 +91,9 @@ public partial class ProductsPage : Page
             _products.AddRange(_blc.GetAllProducts());
         }
     }
-    
+
+    private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        SelectedCategories = ((ListBox)sender).SelectedItems.Cast<ProductCategory>().ToList();;
+    }
 }
