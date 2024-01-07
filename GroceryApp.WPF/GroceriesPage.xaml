@@ -9,8 +9,8 @@
     
       <StackPanel>
           <Grid Margin="10">
-              <DataGrid Name="GroceriesDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False">
-                  <DataGrid.Columns>
+              <DataGrid Name="GroceriesDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeaderWidth="0" CanUserResizeRows="False" CanUserDeleteRows="False" AlternatingRowBackground="#FFACEAB2" AlternationCount="1">
+                <DataGrid.Columns>
                       <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
                       <DataGridTextColumn Header="Address" Binding="{Binding Address}" />
                   </DataGrid.Columns>

@@ -30,8 +30,9 @@ public partial class ProductsPage : Page
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
-        // Show the AddProductControl
-        AddProductControl.Visibility = Visibility.Visible;
+        var detailPage = new EditProductPage(new Product());
+        NavigationService?.Navigate(detailPage);
+        // AddProductControl.Visibility = Visibility.Visible;
     }
 
     private void Remove_Click(object sender, RoutedEventArgs e)
@@ -44,7 +45,11 @@ public partial class ProductsPage : Page
 
     private void Update_Click(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        var button = (Button)sender;
+        var product = (IProduct)button.DataContext;
+        var detailPage = new EditProductPage(product);
+        
+        NavigationService.Navigate(detailPage);
     }
 
     private void ApplyFilters_Click(object sender, RoutedEventArgs e)

@@ -4,7 +4,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
 public interface IProduct
 {
-    int Id { get; set; }
+    int? Id { get; set; }
     string Name { get; set; }
     float Price { get; set; }
     ProductCategory Category { get; set; }

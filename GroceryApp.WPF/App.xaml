@@ -2,9 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GroceryApp.WPF"
+             xmlns:converters="clr-namespace:GroceryApp.WPF.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <Style TargetType="{x:Type Window}" x:Key="BaseWindowStyle">
+            <Setter Property="Background" Value="#292929" />
+        </Style>
+        <Style TargetType="{x:Type local:MainWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
         <SolidColorBrush x:Key="ComboBoxBackground" Color="White"/>
         <SolidColorBrush x:Key="ComboBoxForeground" Color="Black"/>
+        <converters:GroceryToStringConverter x:Key="GroceryToStringConverter"/>
     </Application.Resources>
 </Application>
