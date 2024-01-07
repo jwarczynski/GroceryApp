@@ -23,15 +23,16 @@ public partial class ProductsPage : Page
     public ProductsPage()
     {
         InitializeComponent();
-        BLC blc = new BLC("GroceryApp.DAOMock1.dll");
-        _products = new ObservableCollection<IProduct>(blc.GetAllProducts());
+        _products = new ObservableCollection<IProduct>(_blc.GetAllProducts());
         ProductsDataGrid.ItemsSource = _products;
+        IsVisibleChanged += ProductsPage_IsVisibleChanged;
     }
 
     private void Add_Click(object sender, RoutedEventArgs e)
     {
         var detailPage = new EditProductPage(_blc.GetProductTemplate());
         NavigationService?.Navigate(detailPage);
+        
         // AddProductControl.Visibility = Visibility.Visible;
     }
 
@@ -74,4 +75,14 @@ public partial class ProductsPage : Page
         _products.Add(saved);
         MessageBox.Show($"Product saved: {saved.Name}");
     }
+    
+    private void ProductsPage_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if ((bool)e.NewValue)
+        {
+            _products.Clear();
+            _products.AddRange(_blc.GetAllProducts());
+        }
+    }
+    
 }

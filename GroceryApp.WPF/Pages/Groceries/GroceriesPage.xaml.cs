@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using GroceryApp.WPF.ExtensionClass;
 using GroceryApp.WPF.Pages.Groceries;
 using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
@@ -17,6 +18,8 @@ public partial class GroceriesPage : Page
         InitializeComponent();
         _groceries = new ObservableCollection<IGrocery>(_blc.GetAllGroceries());
         GroceriesDataGrid.ItemsSource = _groceries;
+        IsVisibleChanged += ProductsPage_IsVisibleChanged;
+
     }
 
     private void Remove_Click(object sender, RoutedEventArgs e)
@@ -40,5 +43,14 @@ public partial class GroceriesPage : Page
     {
         var detailPage = new EditGroceryPage(_blc.GetGroceryTemplate());
         NavigationService?.Navigate(detailPage);
+    }
+    
+    private void ProductsPage_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if ((bool)e.NewValue)
+        {
+            _groceries.Clear();
+            _groceries.AddRange(_blc.GetAllGroceries());
+        }
     }
 }
