@@ -17,4 +17,22 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Page Update="Pages\Groceries\GroceriesPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Pages\Products\EditProductPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Pages\Products\ProductsPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
 </Project>
