@@ -47,14 +47,14 @@ public class BLC
         return _dao.SaveProduct(product);
     }
 
-    public void EditGrocery(IGrocery grocery)
+    public IGrocery EditGrocery(IGrocery grocery)
     {
-        _dao.EditGrocery(grocery);
+        return _dao.EditGrocery(grocery);
     }
 
-    public void EditProduct(IProduct product)
+    public IProduct EditProduct(IProduct product)
     {
-        _dao.EditProduct(product);
+        return _dao.EditProduct(product);
     }
 
     public void DeleteGrocery(IGrocery grocery)

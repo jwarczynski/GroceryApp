@@ -75,20 +75,22 @@ public class DAOMock : IDAO
         return product;
     }
 
-    public void EditGrocery(IGrocery grocery)
+    public IGrocery EditGrocery(IGrocery grocery)
     {
         var groceryToDelete = _groceries.FirstOrDefault(g => g.Id == grocery.Id);
-        if (groceryToDelete == null) return;
+        if (groceryToDelete == null) return groceryToDelete;
         DeleteGrocery(groceryToDelete);
         _groceries.Add(grocery);
+        return groceryToDelete;
     }
 
-    public void EditProduct(IProduct product)
+    public IProduct EditProduct(IProduct product)
     {
         var productToDelete = _products.FirstOrDefault(g => g.Id == product.Id);
-        if (productToDelete == null) return; 
+        if (productToDelete == null) return productToDelete; 
         DeleteProduct(productToDelete);
         _products.Add(product);
+        return productToDelete;
     }
 
     public void DeleteGrocery(IGrocery grocery)

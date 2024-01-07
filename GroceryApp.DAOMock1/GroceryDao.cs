@@ -49,13 +49,17 @@ public class GroceryDao : IDAO
         return saved.Entity;
     }
 
-    public void EditGrocery(IGrocery grocery)
+    public IGrocery EditGrocery(IGrocery grocery)
     {
-        _context.Groceries.Update((Grocery)grocery);
+        var updated = _context.Groceries.Update((Grocery)grocery);
+        _context.SaveChanges();
+        return updated.Entity;
     }
-    public void EditProduct(IProduct product)
+    public IProduct EditProduct(IProduct product)
     {
-        _context.Products.Update((Product)product);
+        var updated = _context.Products.Update((Product)product);
+        _context.SaveChanges();
+        return updated.Entity;
     }
 
     public void DeleteGrocery(IGrocery grocery)

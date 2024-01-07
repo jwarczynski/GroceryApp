@@ -7,8 +7,8 @@ public interface IDAO
     IEnumerable<IProduct> GetProductsByFilter(IFilter filter);
     IGrocery SaveGrocery(IGrocery grocery);
     IProduct SaveProduct(IProduct product);
-    void EditGrocery(IGrocery grocery);
-    void EditProduct(IProduct product);
+    IGrocery EditGrocery(IGrocery grocery);
+    IProduct EditProduct(IProduct product);
     void DeleteGrocery(IGrocery grocery);
     void DeleteProduct(IProduct product);
 }
