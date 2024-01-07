@@ -11,4 +11,7 @@ public interface IDAO
     IProduct EditProduct(IProduct product);
     void DeleteGrocery(IGrocery grocery);
     void DeleteProduct(IProduct product);
+    IGrocery GetGroceryTemplate();
+    IProduct GetProductWithGrocery(int id);
+    IProduct GetProductTemplate();
 }

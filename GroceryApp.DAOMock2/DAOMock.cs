@@ -112,4 +112,19 @@ public class DAOMock : IDAO
     {
         throw new NotImplementedException();
     }
+
+    public IGrocery GetGroceryTemplate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IProduct GetProductWithGrocery(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IProduct GetProductTemplate()
+    {
+        return new Product();
+    }
 }

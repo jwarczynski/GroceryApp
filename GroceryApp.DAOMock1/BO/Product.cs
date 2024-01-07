@@ -13,6 +13,8 @@ public class Product : IProduct
     public float Magnesium { get; set; }
     public float Potassium { get; set; }
     public float Sodium { get; set; }
+    [ForeignKey("GroceryEntity")]
+    public int GroceryEntityId { get; set; }
     public Grocery GroceryEntity { get; set; }
 
     [NotMapped]

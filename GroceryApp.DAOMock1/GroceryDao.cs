@@ -1,4 +1,5 @@
-﻿using Warczynski.Zbaszyniak.GroceryApp.DAOMock1.BO;
+﻿using Microsoft.EntityFrameworkCore;
+using Warczynski.Zbaszyniak.GroceryApp.DAOMock1.BO;
 using Warczynski.Zbaszyniak.GroceryApp.DAOMock1.DataAccess;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
@@ -32,18 +33,7 @@ public class GroceryDao : IDAO
 
     public IProduct SaveProduct(IProduct product)
     {
-        var grocery = _context.Groceries.ToList()[0];
-        Product productModel = new Product()
-        {
-            Name = product.Name,
-            Price = product.Price,
-            Category = product.Category,
-            Magnesium = product.Magnesium,
-            Potassium = product.Potassium,
-            Sodium = product.Sodium,
-            GroceryEntity = grocery
-        };
-
+        Product productModel = (Product)product;
         var saved = _context.Products.Add(productModel);
         _context.SaveChanges();
         return saved.Entity;
@@ -57,7 +47,8 @@ public class GroceryDao : IDAO
     }
     public IProduct EditProduct(IProduct product)
     {
-        var updated = _context.Products.Update((Product)product);
+        var productModel = (Product)product;
+        var updated = _context.Products.Update(productModel);
         _context.SaveChanges();
         return updated.Entity;
     }
@@ -108,5 +99,22 @@ public class GroceryDao : IDAO
             _context.Products.Remove(productToRemove);
             _context.SaveChanges();
         }
+    }
+    
+    public IProduct GetProductWithGrocery(int id)
+    {
+        return _context.Products
+            .Include(p => p.GroceryEntity)
+            .FirstOrDefault(p => p.Id == id) ?? throw new InvalidOperationException();
+    }
+
+    public IGrocery GetGroceryTemplate()
+    {
+        return new Grocery();
+    }
+
+    public IProduct GetProductTemplate()
+    {
+        return new Product();
     }
 }

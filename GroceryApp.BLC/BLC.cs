@@ -37,9 +37,9 @@ public class BLC
         return _dao.GetAllProducts();
     }
 
-    public void SaveGrocery(IGrocery grocery)
+    public IGrocery SaveGrocery(IGrocery grocery)
     {
-        _dao.SaveGrocery(grocery);
+        return _dao.SaveGrocery(grocery);
     }
 
     public IProduct SaveProduct(IProduct product)
@@ -70,5 +70,20 @@ public class BLC
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
     {
         return _dao.GetProductsByFilter(filter);
+    }
+
+    public IGrocery GetGroceryTemplate()
+    {
+        return _dao.GetGroceryTemplate();
+    }
+    
+    public IProduct GetProductWithGrocery(int id)
+    {
+        return _dao.GetProductWithGrocery(id);
+    }
+
+    public IProduct GetProductTemplate()
+    {
+        return _dao.GetProductTemplate();
     }
 }
