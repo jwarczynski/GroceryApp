@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:GroceryApp.WPF"
+      xmlns:validationRules="clr-namespace:GroceryApp.WPF.ValidationRules"
       mc:Ignorable="d"
       x:Name="Page"
       Title="EditProductPage" Height="450" Width="800"
@@ -50,10 +51,26 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Path=Product.Name, Mode=TwoWay}" Background="{StaticResource BackgroundLightBrush}"
-                     Foreground="{StaticResource PrimaryBrush}" />
-            <TextBox Text="{Binding Product.Price, Mode=TwoWay}" Grid.Column="1"
-                     Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" />
+            <TextBox x:Name="TxtName" Style="{StaticResource InputTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="Product.Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:NonEmptyInputRule ElementName="Name" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBox x:Name="TxtPrice"
+                     Grid.Column="1"
+                     Style="{StaticResource InputTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="Product.Price" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validationRules:GreaterThanZeroRule ElementName="Price" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
             <ComboBox SelectedItem="{Binding Product.Category, Mode=TwoWay}" Grid.Column="2"
                       ItemsSource="{Binding Source={x:Static local:ProductsPage.ProductCategoryEnumValues}}">
                 <ComboBox.ItemContainerStyle>
@@ -64,8 +81,17 @@
                 </ComboBox.ItemContainerStyle>
             </ComboBox>
 
-            <TextBox Text="{Binding Product.Magnesium, Mode=TwoWay}" Grid.Column="3"
-                     Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" />
+            <TextBox x:Name="TxtMagnesium"
+                     Grid.Column="3"
+                     Style="{StaticResource InputTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="Product.Magnesium" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validationRules:GreaterThanZeroRule ElementName="Magnesium" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </Grid>
 
         <!-- Third Row -->
@@ -92,11 +118,29 @@
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="txtPotassium" Text="{Binding Product.Potassium, Mode=TwoWay}"
-                     Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" />
-            <TextBox x:Name="txtSodium" Grid.Column="1" Text="{Binding Product.Sodium, Mode=TwoWay}"
-                     Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" />
-            <ComboBox x:Name="cmbGrocery" Grid.Column="2"
+            <TextBox x:Name="TxtPotassium"
+                     Style="{StaticResource InputTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="Product.Potassium" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validationRules:GreaterThanZeroRule ElementName="Potassium" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBox x:Name="TxtSodium"
+                     Grid.Column="1"
+                     Style="{StaticResource InputTextBoxStyle}">
+                <TextBox.Text>
+                    <Binding Path="Product.Sodium" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <validationRules:GreaterThanZeroRule ElementName="Sodium" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <ComboBox x:Name="CmbGrocery" Grid.Column="2"
                       ItemsSource="{Binding Groceries }"
                       SelectedItem="{Binding Product.Grocery, Mode=TwoWay}"
                       Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}">
@@ -118,8 +162,10 @@
 
         <!-- Button Row -->
         <Grid Grid.Row="4" Margin="20">
-            <Button Content="Save" Width="Auto" HorizontalAlignment="Stretch" Margin="0,10,0,0" Click="Save_Click"
-                    Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource BackgroundBrush}" />
+            <Button Content="Save" Width="Auto" HorizontalAlignment="Stretch" Margin="0,10,0,0"
+                    Click="Save_Click"
+                    Background="{StaticResource PrimaryBrush}"
+                    Foreground="{StaticResource BackgroundBrush}" />
         </Grid>
 
     </Grid>

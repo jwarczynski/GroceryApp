@@ -12,7 +12,8 @@
         <SolidColorBrush x:Key="ComboBoxBackground" Color="White" />
         <SolidColorBrush x:Key="ComboBoxForeground" Color="Black" />
         <converters:GroceryToStringConverter x:Key="GroceryToStringConverter" />
-
+        <converters:HasErrorConverter x:Key="HasErrorConverter" />
+        
 
         <!-- Background color -->
         <Color x:Key="Background">#292929</Color>
@@ -46,6 +47,9 @@
         <Color x:Key="SecondaryDark">#00796B</Color>
         <SolidColorBrush x:Key="SecondaryDarkBrush" Color="{StaticResource SecondaryDark}" />
         
+        <Color x:Key="Error">#cf6679</Color>
+        <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource Error}" />
+        
         
         <Style TargetType="DataGrid" x:Key="MyDataGridStyle">
             <Setter Property="RowBackground" Value="{StaticResource BackgroundBrush}" />
@@ -63,5 +67,30 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <!-- The error message is displayed below the TextBox -->
+                <TextBlock Text="{Binding ElementName=textBox, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" 
+                           Foreground="{StaticResource ErrorBrush}" Margin="2" />
+            </StackPanel>
+        </ControlTemplate>
+        
+        <Style x:Key="InputTextBoxStyle" TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate" Value="{StaticResource ValidationErrorTemplate}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="BorderBrush" Value="{StaticResource ErrorBrush}"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        
     </Application.Resources>
 </Application>
