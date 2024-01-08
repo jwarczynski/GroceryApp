@@ -9,8 +9,59 @@
             <Setter Property="Background" Value="#292929" />
         </Style>
         <Style TargetType="{x:Type local:MainWindow}" BasedOn="{StaticResource BaseWindowStyle}" />
-        <SolidColorBrush x:Key="ComboBoxBackground" Color="White"/>
-        <SolidColorBrush x:Key="ComboBoxForeground" Color="Black"/>
-        <converters:GroceryToStringConverter x:Key="GroceryToStringConverter"/>
+        <SolidColorBrush x:Key="ComboBoxBackground" Color="White" />
+        <SolidColorBrush x:Key="ComboBoxForeground" Color="Black" />
+        <converters:GroceryToStringConverter x:Key="GroceryToStringConverter" />
+
+
+        <!-- Background color -->
+        <Color x:Key="Background">#292929</Color>
+        <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource Background}" />
+
+        <!-- Background color variations -->
+        <Color x:Key="BackgroundLight">#3F3F3F</Color>
+        <SolidColorBrush x:Key="BackgroundLightBrush" Color="{StaticResource BackgroundLight}" />
+
+        <Color x:Key="BackgroundDark">#1F1F1F</Color>
+        <SolidColorBrush x:Key="BackgroundDarkBrush" Color="{StaticResource BackgroundDark}" />
+        <!-- Primary color -->
+        <Color x:Key="Primary">#bb86fc</Color>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}" />
+
+        <!-- Primary color variations -->
+        <Color x:Key="PrimaryLight">#EDE7F6</Color>
+        <SolidColorBrush x:Key="PrimaryLightBrush" Color="{StaticResource PrimaryLight}" />
+
+        <Color x:Key="PrimaryDark">#9575CD</Color>
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDark}" />
+
+        <!-- Secondary color -->
+        <Color x:Key="Secondary">#03dac5</Color>
+        <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}" />
+
+        <!-- Secondary color variations -->
+        <Color x:Key="SecondaryLight">#B2DFDB</Color>
+        <SolidColorBrush x:Key="SecondaryLightBrush" Color="{StaticResource SecondaryLight}" />
+
+        <Color x:Key="SecondaryDark">#00796B</Color>
+        <SolidColorBrush x:Key="SecondaryDarkBrush" Color="{StaticResource SecondaryDark}" />
+        
+        
+        <Style TargetType="DataGrid" x:Key="MyDataGridStyle">
+            <Setter Property="RowBackground" Value="{StaticResource BackgroundBrush}" />
+            <Setter Property="Background" Value="{StaticResource BackgroundDarkBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+            <Setter Property="RowHeaderWidth" Value="0" />
+            <Setter Property="SelectionMode" Value="Extended" />
+            <Setter Property="CanUserResizeRows" Value="False" />
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="{StaticResource BackgroundDarkBrush}" />
+                        <Setter Property="Foreground" Value="{StaticResource SecondaryBrush}" />
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

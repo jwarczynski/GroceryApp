@@ -5,8 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:GroceryApp.WPF.Pages.Groceries"
       mc:Ignorable="d"
-      Title="EditGroceryPage" Height="450" Width="800">
-    <Grid>
+      Title="EditGroceryPage" Height="450" Width="800"
+      Background="{StaticResource BackgroundBrush}">
+    
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -17,12 +19,12 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,10,10"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,10"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Address:"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Address, Mode=TwoWay}"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Address:" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,10,10"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Address, Mode=TwoWay}" Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,10"/>
 
-        <Button Grid.Row="2" Grid.Column="1" Content="Save" Click="Save_Click"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Save" Click="Save_Click" Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource BackgroundBrush}" Margin="0,0,0,10"/>
     </Grid>
 </Page>

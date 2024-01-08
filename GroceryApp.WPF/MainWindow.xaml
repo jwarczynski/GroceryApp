@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GroceryApp.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="900">
+        Title="MainWindow" Height="650" Width="900"
+        Background="{StaticResource BackgroundBrush}">
 
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
         <StackPanel HorizontalAlignment="Center" Height="52" Width="400">
@@ -16,14 +17,14 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0" Margin="10" Content="Groceries" Height="26" Width="132"
-                        HorizontalAlignment="Right" Click="ShowGroceries_Click"/>
+                        HorizontalAlignment="Right" Click="ShowGroceries_Click"
+                        Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource BackgroundBrush}"/>
                 <Button Grid.Column="1" Margin="10" Content="Products" Height="26" Width="132"
-                        HorizontalAlignment="Left" Click="ShowProducts_Click" />
+                        HorizontalAlignment="Left" Click="ShowProducts_Click"
+                        Background="{StaticResource SecondaryBrush}" Foreground="{StaticResource BackgroundBrush}"/>
             </Grid>
 
         </StackPanel>
-        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" />
+        <Frame Name="MainFrame" NavigationUIVisibility="Hidden" Background="{StaticResource BackgroundDarkBrush}" />
     </StackPanel>
-
-
 </Window>

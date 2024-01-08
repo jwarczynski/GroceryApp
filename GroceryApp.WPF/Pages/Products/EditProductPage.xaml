@@ -6,92 +6,121 @@
       xmlns:local="clr-namespace:GroceryApp.WPF"
       mc:Ignorable="d"
       x:Name="Page"
-      Title="EditProductPage" Height="450" Width="800">
+      Title="EditProductPage" Height="450" Width="800"
+      Background="{StaticResource BackgroundBrush}">
+
     <Page.DataContext>
         <local:ProductViewModel></local:ProductViewModel>
     </Page.DataContext>
-    <!-- <Grid> -->
-    <!--     <local:AddProductControl x:Name="AddProductControl" Visibility="Visible" ProductSaved="AddProductControl_ProductSaved"/> -->
-    <!-- </Grid> -->
-    
-        <Grid>
+
+    <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- First Row -->
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Name" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-            <Label Content="Price" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-            <Label Content="Category" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-            <Label Content="Magnesium" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+            <Label Content="Name" HorizontalAlignment="Center" Margin="0,0,10,0"
+                   Foreground="{StaticResource PrimaryBrush}" />
+            <Label Content="Price" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,10,0"
+                   Foreground="{StaticResource PrimaryBrush}" />
+            <Label Content="Category" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,10,0"
+                   Foreground="{StaticResource PrimaryBrush}" />
+            <Label Content="Magnesium" Grid.Column="3" HorizontalAlignment="Center" Margin="0,0,10,0"
+                   Foreground="{StaticResource PrimaryBrush}" />
         </Grid>
 
         <!-- Second Row -->
-        <Grid Grid.Row="1" Margin="10">
+        <Grid Grid.Row="1" Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox Text="{Binding Path=Product.Name, Mode=TwoWay}"/>
-            <TextBox Text="{Binding Product.Price, Mode=TwoWay}" Grid.Column="1" />
-            <ComboBox SelectedItem="{Binding Product.Category, Mode=TwoWay}" Grid.Column="2" ItemsSource="{Binding Source={x:Static local:ProductsPage.ProductCategoryEnumValues}}"/>
-            <TextBox Text="{Binding Product.Magnesium, Mode=TwoWay}" Grid.Column="3" />
+            <TextBox Text="{Binding Path=Product.Name, Mode=TwoWay}" Background="{StaticResource BackgroundLightBrush}"
+                     Foreground="{StaticResource PrimaryBrush}" />
+            <TextBox Text="{Binding Product.Price, Mode=TwoWay}" Grid.Column="1"
+                     Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" />
+            <ComboBox SelectedItem="{Binding Product.Category, Mode=TwoWay}" Grid.Column="2"
+                      ItemsSource="{Binding Source={x:Static local:ProductsPage.ProductCategoryEnumValues}}">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}" />
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+                    </Style>
+                </ComboBox.ItemContainerStyle>
+            </ComboBox>
+
+            <TextBox Text="{Binding Product.Magnesium, Mode=TwoWay}" Grid.Column="3"
+                     Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" />
         </Grid>
 
         <!-- Third Row -->
-        <Grid Grid.Row="2" Margin="10">
+        <Grid Grid.Row="2" Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Potassium" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-            <Label Content="Sodium" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,10,0"/>
-            <Label Content="Grocery" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+            <Label Content="Potassium" HorizontalAlignment="Center" Margin="0,0,10,0"
+                   Foreground="{StaticResource PrimaryBrush}" />
+            <Label Content="Sodium" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,10,0"
+                   Foreground="{StaticResource PrimaryBrush}" />
+            <Label Content="Grocery" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,10,0"
+                   Foreground="{StaticResource PrimaryBrush}" />
         </Grid>
 
         <!-- Fourth Row -->
-        <Grid Grid.Row="3" Margin="10">
+        <Grid Grid.Row="3" Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="txtPotassium" Text="{Binding Product.Potassium, Mode=TwoWay}"/>
-            <TextBox x:Name="txtSodium" Grid.Column="1" Text="{Binding Product.Sodium, Mode=TwoWay}"/>
+            <TextBox x:Name="txtPotassium" Text="{Binding Product.Potassium, Mode=TwoWay}"
+                     Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" />
+            <TextBox x:Name="txtSodium" Grid.Column="1" Text="{Binding Product.Sodium, Mode=TwoWay}"
+                     Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" />
             <ComboBox x:Name="cmbGrocery" Grid.Column="2"
                       ItemsSource="{Binding Groceries }"
-                      SelectedItem="{Binding Product.Grocery, Mode=TwoWay}">
+                      SelectedItem="{Binding Product.Grocery, Mode=TwoWay}"
+                      Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}">
+                <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                        <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}" />
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+                    </Style>
+                </ComboBox.ItemContainerStyle>
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource GroceryToStringConverter}}"/>
+                        <TextBlock Text="{Binding Converter={StaticResource GroceryToStringConverter}}"
+                                   Foreground="{StaticResource PrimaryBrush}"
+                                   Background="{StaticResource BackgroundLightBrush}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
 
         <!-- Button Row -->
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Save" Width="80" Margin="0,10,0,0" Click="Save_Click"/>
-        </StackPanel>
-    </Grid>
+        <Grid Grid.Row="4" Margin="20">
+            <Button Content="Save" Width="Auto" HorizontalAlignment="Stretch" Margin="0,10,0,0" Click="Save_Click"
+                    Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource BackgroundBrush}" />
+        </Grid>
 
-    
+    </Grid>
 </Page>

@@ -5,33 +5,40 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:GroceryApp.WPF"
       mc:Ignorable="d"
-      Title="GroceriesPage" Height="450" Width="800">
+      Title="GroceriesPage" Height="450" Width="800"
+      Background="{StaticResource BackgroundBrush}">
     
-      <StackPanel>
-          <Grid Margin="10">
-              <DataGrid Name="GroceriesDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False" RowHeaderWidth="0" CanUserResizeRows="False" CanUserDeleteRows="False" AlternatingRowBackground="#FFACEAB2" AlternationCount="1">
+    <StackPanel>
+        <Grid Margin="10">
+            <DataGrid Name="GroceriesDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False"
+                      Style="{StaticResource MyDataGridStyle}">
                 <DataGrid.Columns>
-                      <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-                      <DataGridTextColumn Header="Address" Binding="{Binding Address}" />
-                      <DataGridTemplateColumn>
-                          <DataGridTemplateColumn.CellTemplate>
-                              <DataTemplate>
-                                  <Button Content="Remove" Click="Remove_Click" Background="#FF940B0B" Foreground="#FFF2F7F4" />
-                              </DataTemplate>
-                          </DataGridTemplateColumn.CellTemplate>
-                      </DataGridTemplateColumn>
-                      <DataGridTemplateColumn>
-                          <DataGridTemplateColumn.CellTemplate>
-                              <DataTemplate>
-                                  <Button Content="Update" Click="Update_Click" Foreground="#FFF2F7F4" />
-                              </DataTemplate>
-                          </DataGridTemplateColumn.CellTemplate>
-                      </DataGridTemplateColumn>
-                  </DataGrid.Columns>
-              </DataGrid>
-          </Grid>
-          <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-              <Button Content="Add" Width="80" Margin="5" Click="Add_Click"/>
-          </StackPanel>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Header="Address" Binding="{Binding Address}" />
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Remove" Click="Remove_Click"
+                                        Background="{StaticResource PrimaryBrush}"
+                                        Foreground="{StaticResource BackgroundBrush}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Update" Click="Update_Click"
+                                        Background="{StaticResource SecondaryBrush}"
+                                        Foreground="{StaticResource BackgroundBrush}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Add" Width="80" Margin="5" Click="Add_Click"
+                    Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource BackgroundBrush}"/>
+        </StackPanel>
     </StackPanel>
 </Page>
