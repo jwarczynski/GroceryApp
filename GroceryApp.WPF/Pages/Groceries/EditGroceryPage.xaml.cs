@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using GroceryApp.WPF.Validations;
 using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
@@ -17,6 +18,21 @@ public partial class EditGroceryPage : Page
 
     private void Save_Click(object sender, RoutedEventArgs e)
     {
+        if (!ValidationHelper.AreAllTextBoxesValid(this))
+        {
+            return;
+        }
+        if (Grocery.Address == null || string.IsNullOrWhiteSpace(Grocery.Address))
+        {
+            MessageBox.Show("PLease enter address.");
+            return;
+        }
+        if (Grocery.Name == null || string.IsNullOrWhiteSpace(Grocery.Name))
+        {
+            MessageBox.Show("PLease enter name.");
+            return;
+        }
+        
         var saved = Grocery.Id == null ? BLCContainer.Instance.SaveGrocery(Grocery) : BLCContainer.Instance.EditGrocery(Grocery);
         ShowSuccessMessage(saved);
         NavigationService?.GoBack();

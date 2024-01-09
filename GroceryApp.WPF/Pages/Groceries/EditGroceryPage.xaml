@@ -4,27 +4,55 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:GroceryApp.WPF.Pages.Groceries"
+      xmlns:validationRules="clr-namespace:GroceryApp.WPF.ValidationRules"
       mc:Ignorable="d"
       Title="EditGroceryPage" Height="450" Width="800"
       Background="{StaticResource BackgroundBrush}">
-    
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,10,10"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay}" Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,10"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:" Foreground="{StaticResource PrimaryBrush}"
+               Margin="0,0,10,20" />
+        <TextBox Grid.Row="0" Grid.Column="1"
+                 Style="{StaticResource InputTextBoxStyle}"
+                 Margin="0,0,0,20">
+            <TextBox.Text>
+                <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validationRules:NonEmptyInputRule ElementName="Name" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Address:" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,10,10"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Address, Mode=TwoWay}" Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}" Margin="0,0,0,10"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Address:" Foreground="{StaticResource PrimaryBrush}"
+               Margin="0,0,10,20" />
+        <TextBox Grid.Row="1" Grid.Column="1"
+                 Style="{StaticResource InputTextBoxStyle}"
+                 Margin="0,0,0,20">
+            <TextBox.Text>
+                <Binding Path="Address" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validationRules:NonEmptyInputRule ElementName="Address" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
-        <Button Grid.Row="2" Grid.Column="1" Content="Save" Click="Save_Click" Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource BackgroundBrush}" Margin="0,0,0,10"/>
+        <Button Grid.Row="2" Grid.Column="1"
+                Click="Save_Click"
+                Content="Save"
+                Background="{StaticResource PrimaryBrush}"
+                Foreground="{StaticResource BackgroundBrush}"
+                Margin="0,0,0,20" />
     </Grid>
 </Page>
