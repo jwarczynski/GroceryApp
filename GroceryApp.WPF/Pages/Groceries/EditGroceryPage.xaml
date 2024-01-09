@@ -25,7 +25,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:" Foreground="{StaticResource PrimaryBrush}" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:"
+               Foreground="{StaticResource PrimaryBrush}"
+               FontWeight="Bold"/>
         <TextBox Grid.Row="0" Grid.Column="1"
                  Style="{StaticResource InputTextBoxStyle}">
             <TextBox.Text>
@@ -37,7 +39,10 @@
             </TextBox.Text>
         </TextBox>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Address:" Foreground="{StaticResource PrimaryBrush}" />
+        <Label Grid.Row="1" Grid.Column="0"
+               Content="Address:"
+               Foreground="{StaticResource PrimaryBrush}"
+               FontWeight="Bold"/>
         <TextBox Grid.Row="1" Grid.Column="1"
                  Style="{StaticResource InputTextBoxStyle}">
             <TextBox.Text>
@@ -52,6 +57,7 @@
         <Button Grid.Row="2" Grid.Column="1"
                 Click="Save_Click"
                 Content="Save"
+                FontWeight="Bold"
                 Background="{StaticResource PrimaryBrush}"
                 Foreground="{StaticResource BackgroundBrush}"
                 Margin="0,0,0,20" />

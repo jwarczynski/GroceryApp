@@ -32,6 +32,7 @@
         <Grid.Resources>
             <Style TargetType="Label">
                 <Setter Property="Margin" Value="0,0,10,20"/>
+                <Setter Property="FontWeight" Value="Bold"/>
             </Style>
             <Style TargetType="ComboBox">
                 <Setter Property="Margin" Value="0,0,0,20"/>
@@ -39,16 +40,16 @@
         </Grid.Resources>
 
         <Label Grid.Row="0" Content="Name"
-               HorizontalAlignment="Center" Margin="0,0,10,0"
+               HorizontalAlignment="Left" Margin="0,0,10,0"
                Foreground="{StaticResource PrimaryBrush}" />
         <Label Grid.Column="0" Grid.Row="1" Content="Price"
-               HorizontalAlignment="Center" Margin="0,0,10,0"
+               HorizontalAlignment="Left" Margin="0,0,10,0"
                Foreground="{StaticResource PrimaryBrush}" />
         <Label Grid.Column="0" Grid.Row="5" Content="Category"
-               HorizontalAlignment="Center" Margin="0,0,10,0"
+               HorizontalAlignment="Left" Margin="0,0,10,0"
                Foreground="{StaticResource PrimaryBrush}" />
         <Label Grid.Column="0" Grid.Row="3" Content="Magnesium"
-               HorizontalAlignment="Center" Margin="0,0,10,0"
+               HorizontalAlignment="Left" Margin="0,0,10,0"
                Foreground="{StaticResource PrimaryBrush}" />
 
         <TextBox Grid.Column="1" Grid.Row="0" x:Name="TxtName"
@@ -94,13 +95,13 @@
         </TextBox>
 
         <Label Grid.Column="0" Grid.Row="4" Content="Potassium"
-               HorizontalAlignment="Center" Margin="0,0,10,0"
+               HorizontalAlignment="Left" Margin="0,0,10,0"
                Foreground="{StaticResource PrimaryBrush}" />
         <Label Grid.Column="0" Grid.Row="2" Content="Sodium"
-               HorizontalAlignment="Center" Margin="0,0,10,0"
+               HorizontalAlignment="Left" Margin="0,0,10,0"
                Foreground="{StaticResource PrimaryBrush}" />
         <Label Grid.Column="0" Grid.Row="6" Content="Grocery"
-               HorizontalAlignment="Center" Margin="0,0,10,0"
+               HorizontalAlignment="Left" Margin="0,0,10,0"
                Foreground="{StaticResource PrimaryBrush}" />
 
         <TextBox Grid.Column="1" Grid.Row="4" x:Name="TxtPotassium"
@@ -143,11 +144,13 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <Button Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="7" Content="Save"
-                Width="Auto" HorizontalAlignment="Stretch" Margin="0,10,0,0"
-                Click="Save_Click"
+        <Button Grid.Column="1" Grid.Row="7"
+                Content="Save"
+                FontWeight="Bold"
+                Width="Auto" HorizontalAlignment="Stretch" Margin="0,30,0,0"
                 Background="{StaticResource PrimaryBrush}"
-                Foreground="{StaticResource BackgroundBrush}" />
+                Foreground="{StaticResource BackgroundBrush}"
+                Click="Save_Click" />
 
     </Grid>
 </Page>
