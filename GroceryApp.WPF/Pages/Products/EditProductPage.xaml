@@ -21,152 +21,133 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="0,0,10,20"/>
+            </Style>
+            <Style TargetType="ComboBox">
+                <Setter Property="Margin" Value="0,0,0,20"/>
+            </Style>
+        </Grid.Resources>
 
-        <!-- First Row -->
-        <Grid Grid.Row="0" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Content="Name"
+               HorizontalAlignment="Center" Margin="0,0,10,0"
+               Foreground="{StaticResource PrimaryBrush}" />
+        <Label Grid.Column="0" Grid.Row="1" Content="Price"
+               HorizontalAlignment="Center" Margin="0,0,10,0"
+               Foreground="{StaticResource PrimaryBrush}" />
+        <Label Grid.Column="0" Grid.Row="5" Content="Category"
+               HorizontalAlignment="Center" Margin="0,0,10,0"
+               Foreground="{StaticResource PrimaryBrush}" />
+        <Label Grid.Column="0" Grid.Row="3" Content="Magnesium"
+               HorizontalAlignment="Center" Margin="0,0,10,0"
+               Foreground="{StaticResource PrimaryBrush}" />
 
-            <Label Content="Name" HorizontalAlignment="Center" Margin="0,0,10,0"
-                   Foreground="{StaticResource PrimaryBrush}" />
-            <Label Content="Price" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,10,0"
-                   Foreground="{StaticResource PrimaryBrush}" />
-            <Label Content="Category" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,10,0"
-                   Foreground="{StaticResource PrimaryBrush}" />
-            <Label Content="Magnesium" Grid.Column="3" HorizontalAlignment="Center" Margin="0,0,10,0"
-                   Foreground="{StaticResource PrimaryBrush}" />
-        </Grid>
+        <TextBox Grid.Column="1" Grid.Row="0" x:Name="TxtName"
+                 Style="{StaticResource InputTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Product.Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validationRules:NonEmptyInputRule ElementName="Name" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBox Grid.Column="1" Grid.Row="1" x:Name="TxtPrice"
+                 Style="{StaticResource InputTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Product.Price" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <validationRules:GreaterThanZeroRule ElementName="Price" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <ComboBox Grid.Column="1" Grid.Row="5"
+                  SelectedItem="{Binding Product.Category, Mode=TwoWay}"
+                  ItemsSource="{Binding Source={x:Static local:ProductsPage.ProductCategoryEnumValues}}">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}" />
+                    <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
 
-        <!-- Second Row -->
-        <Grid Grid.Row="1" Margin="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="1*" />
-            </Grid.ColumnDefinitions>
+        <TextBox x:Name="TxtMagnesium" Grid.Column="1" Grid.Row="3"
+                 Style="{StaticResource InputTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Product.Magnesium" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <validationRules:GreaterThanZeroRule ElementName="Magnesium" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
-            <TextBox x:Name="TxtName" Style="{StaticResource InputTextBoxStyle}">
-                <TextBox.Text>
-                    <Binding Path="Product.Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validationRules:NonEmptyInputRule ElementName="Name" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <TextBox x:Name="TxtPrice"
-                     Grid.Column="1"
-                     Style="{StaticResource InputTextBoxStyle}">
-                <TextBox.Text>
-                    <Binding Path="Product.Price" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <validationRules:GreaterThanZeroRule ElementName="Price" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <ComboBox SelectedItem="{Binding Product.Category, Mode=TwoWay}" Grid.Column="2"
-                      ItemsSource="{Binding Source={x:Static local:ProductsPage.ProductCategoryEnumValues}}">
-                <ComboBox.ItemContainerStyle>
-                    <Style TargetType="ComboBoxItem">
-                        <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}" />
-                        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
-                    </Style>
-                </ComboBox.ItemContainerStyle>
-            </ComboBox>
+        <Label Grid.Column="0" Grid.Row="4" Content="Potassium"
+               HorizontalAlignment="Center" Margin="0,0,10,0"
+               Foreground="{StaticResource PrimaryBrush}" />
+        <Label Grid.Column="0" Grid.Row="2" Content="Sodium"
+               HorizontalAlignment="Center" Margin="0,0,10,0"
+               Foreground="{StaticResource PrimaryBrush}" />
+        <Label Grid.Column="0" Grid.Row="6" Content="Grocery"
+               HorizontalAlignment="Center" Margin="0,0,10,0"
+               Foreground="{StaticResource PrimaryBrush}" />
 
-            <TextBox x:Name="TxtMagnesium"
-                     Grid.Column="3"
-                     Style="{StaticResource InputTextBoxStyle}">
-                <TextBox.Text>
-                    <Binding Path="Product.Magnesium" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <validationRules:GreaterThanZeroRule ElementName="Magnesium" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-        </Grid>
+        <TextBox Grid.Column="1" Grid.Row="4" x:Name="TxtPotassium"
+                 Style="{StaticResource InputTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Product.Potassium" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <validationRules:GreaterThanZeroRule ElementName="Potassium" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
 
-        <!-- Third Row -->
-        <Grid Grid.Row="2" Margin="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
+        <TextBox Grid.Column="1" Grid.Row="2" x:Name="TxtSodium"
+                 Style="{StaticResource InputTextBoxStyle}">
+            <TextBox.Text>
+                <Binding Path="Product.Sodium" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <validationRules:GreaterThanZeroRule ElementName="Sodium" />
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <ComboBox Grid.Column="1" Grid.Row="6" x:Name="CmbGrocery"
+                  ItemsSource="{Binding Groceries }"
+                  SelectedItem="{Binding Product.Grocery, Mode=TwoWay}"
+                  Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}" />
+                    <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource GroceryToStringConverter}}"
+                               Foreground="{StaticResource PrimaryBrush}"
+                               Background="{StaticResource BackgroundLightBrush}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
-            <Label Content="Potassium" HorizontalAlignment="Center" Margin="0,0,10,0"
-                   Foreground="{StaticResource PrimaryBrush}" />
-            <Label Content="Sodium" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,10,0"
-                   Foreground="{StaticResource PrimaryBrush}" />
-            <Label Content="Grocery" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,10,0"
-                   Foreground="{StaticResource PrimaryBrush}" />
-        </Grid>
-
-        <!-- Fourth Row -->
-        <Grid Grid.Row="3" Margin="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="2*" />
-            </Grid.ColumnDefinitions>
-
-            <TextBox x:Name="TxtPotassium"
-                     Style="{StaticResource InputTextBoxStyle}">
-                <TextBox.Text>
-                    <Binding Path="Product.Potassium" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <validationRules:GreaterThanZeroRule ElementName="Potassium" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-
-            <TextBox x:Name="TxtSodium"
-                     Grid.Column="1"
-                     Style="{StaticResource InputTextBoxStyle}">
-                <TextBox.Text>
-                    <Binding Path="Product.Sodium" Mode="TwoWay">
-                        <Binding.ValidationRules>
-                            <validationRules:GreaterThanZeroRule ElementName="Sodium" />
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
-            </TextBox>
-            <ComboBox x:Name="CmbGrocery" Grid.Column="2"
-                      ItemsSource="{Binding Groceries }"
-                      SelectedItem="{Binding Product.Grocery, Mode=TwoWay}"
-                      Background="{StaticResource BackgroundLightBrush}" Foreground="{StaticResource PrimaryBrush}">
-                <ComboBox.ItemContainerStyle>
-                    <Style TargetType="ComboBoxItem">
-                        <Setter Property="Background" Value="{StaticResource BackgroundLightBrush}" />
-                        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}" />
-                    </Style>
-                </ComboBox.ItemContainerStyle>
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Converter={StaticResource GroceryToStringConverter}}"
-                                   Foreground="{StaticResource PrimaryBrush}"
-                                   Background="{StaticResource BackgroundLightBrush}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </Grid>
-
-        <!-- Button Row -->
-        <Grid Grid.Row="4" Margin="20">
-            <Button Content="Save" Width="Auto" HorizontalAlignment="Stretch" Margin="0,10,0,0"
-                    Click="Save_Click"
-                    Background="{StaticResource PrimaryBrush}"
-                    Foreground="{StaticResource BackgroundBrush}" />
-        </Grid>
+        <Button Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="7" Content="Save"
+                Width="Auto" HorizontalAlignment="Stretch" Margin="0,10,0,0"
+                Click="Save_Click"
+                Background="{StaticResource PrimaryBrush}"
+                Foreground="{StaticResource BackgroundBrush}" />
 
     </Grid>
 </Page>

@@ -10,6 +10,11 @@
       Background="{StaticResource BackgroundBrush}">
 
     <Grid Margin="20">
+        <Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="Margin" Value="0,0,10,20"/>
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -20,11 +25,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Name:" Foreground="{StaticResource PrimaryBrush}"
-               Margin="0,0,10,20" />
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:" Foreground="{StaticResource PrimaryBrush}" />
         <TextBox Grid.Row="0" Grid.Column="1"
-                 Style="{StaticResource InputTextBoxStyle}"
-                 Margin="0,0,0,20">
+                 Style="{StaticResource InputTextBoxStyle}">
             <TextBox.Text>
                 <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -34,11 +37,9 @@
             </TextBox.Text>
         </TextBox>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Address:" Foreground="{StaticResource PrimaryBrush}"
-               Margin="0,0,10,20" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Address:" Foreground="{StaticResource PrimaryBrush}" />
         <TextBox Grid.Row="1" Grid.Column="1"
-                 Style="{StaticResource InputTextBoxStyle}"
-                 Margin="0,0,0,20">
+                 Style="{StaticResource InputTextBoxStyle}">
             <TextBox.Text>
                 <Binding Path="Address" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
