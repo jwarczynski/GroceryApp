@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using GroceryApp.WPF.Pages.Groceries;
+using GroceryApp.WPF.Pages.Products;
 
 namespace GroceryApp.WPF;
 

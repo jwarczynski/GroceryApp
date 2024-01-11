@@ -2,13 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using GroceryApp.WPF.ExtensionClass;
-using GroceryApp.WPF.Pages.Groceries;
 using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
-namespace GroceryApp.WPF;
+namespace GroceryApp.WPF.Pages.Groceries;
 
-public partial class GroceriesPage : Page
+public partial class GroceriesPage
 {
     private readonly BLC _blc = BLCContainer.Instance;
     private readonly ObservableCollection<IGrocery> _groceries;

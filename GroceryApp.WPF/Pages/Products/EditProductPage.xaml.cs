@@ -1,13 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using GroceryApp.WPF.Validations;
 using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
-namespace GroceryApp.WPF;
+namespace GroceryApp.WPF.Pages.Products;
 
-public partial class EditProductPage : Page
+public partial class EditProductPage
 {
     private ProductViewModel ViewModel => (ProductViewModel)DataContext;
 

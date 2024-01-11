@@ -1,12 +1,11 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using GroceryApp.WPF.Validations;
 using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
 namespace GroceryApp.WPF.Pages.Groceries;
 
-public partial class EditGroceryPage : Page
+public partial class EditGroceryPage
 {
     private IGrocery Grocery { get; }
     public EditGroceryPage(IGrocery grocery)

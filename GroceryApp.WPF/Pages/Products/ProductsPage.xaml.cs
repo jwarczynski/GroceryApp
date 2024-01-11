@@ -7,9 +7,9 @@ using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Core;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
-namespace GroceryApp.WPF;
+namespace GroceryApp.WPF.Pages.Products;
 
-public partial class ProductsPage : Page
+public partial class ProductsPage
 {
     private readonly BLC _blc = BLCContainer.Instance;
     private readonly ObservableCollection<IProduct> _products;

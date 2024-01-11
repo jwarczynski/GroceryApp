@@ -1,7 +1,7 @@
 ﻿using Warczynski.Zbaszyniak.GroceryApp.Core;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
-namespace GroceryApp.WPF;
+namespace GroceryApp.WPF.ViewModels;
 
 public class Product: IProduct
 {
