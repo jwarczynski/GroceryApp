@@ -6,13 +6,14 @@
       xmlns:local="clr-namespace:GroceryApp.WPF"
       xmlns:validationRules="clr-namespace:GroceryApp.WPF.ValidationRules"
       xmlns:products="clr-namespace:GroceryApp.WPF.Pages.Products"
+      xmlns:viewModels="clr-namespace:GroceryApp.WPF.ViewModels"
       mc:Ignorable="d"
       x:Name="Page"
       Title="EditProductPage" Height="450" Width="800"
       Background="{StaticResource BackgroundBrush}">
 
     <Page.DataContext>
-        <local:ProductViewModel></local:ProductViewModel>
+        <viewModels:ProductViewModel></viewModels:ProductViewModel>
     </Page.DataContext>
 
     <Grid Margin="20">
@@ -151,7 +152,7 @@
                 Width="Auto" HorizontalAlignment="Stretch" Margin="0,30,0,0"
                 Background="{StaticResource PrimaryBrush}"
                 Foreground="{StaticResource BackgroundBrush}"
-                Click="Save_Click" />
+                Command="{Binding SaveCommand}"/>
 
     </Grid>
 </Page>
