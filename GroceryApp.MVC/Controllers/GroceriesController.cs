@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Warczynski.Zbaszyniak.GroceryApp.BLC;
-using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
+using Warczynski.Zbaszyniak.GroceryApp.MVC.BO;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {
-    public class ProductsController : Controller
+    public class GroceriesController : Controller
     {
-        private readonly BLC.BLC _blc;
+        private readonly BLC.BLC _blc = BLCContainer.Instance;
 
-        public ProductsController()
+        public GroceriesController()
         {
-            _blc = BLCContainer.Instance;
+
         }
 
-        // GET: Products
+        // GET: Groceries
         public async Task<IActionResult> Index()
         {
-            return View(_blc.GetAllProducts());
+            return View(_blc.GetAllGroceries().ToList());
         }
 
-        // GET: Products/Details/5
+        // GET: Groceries/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,38 +28,38 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var product = _blc.GetAllProducts()
+            var grocery = _blc.GetAllGroceries()
                 .FirstOrDefault(m => m.Id == id);
-            if (product == null)
+            if (grocery == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(grocery);
         }
 
-        // GET: Products/Create
+        // GET: Groceries/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Groceries/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,Magnesium,Potassium,Sodium")] IProduct product)
+        public async Task<IActionResult> Create([Bind("Id,Name,Address")] Grocery grocery)
         {
             if (ModelState.IsValid)
             {
-                _blc.SaveProduct(product);
+                _blc.SaveGrocery(grocery);
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(grocery);
         }
 
-        // GET: Products/Edit/5
+        // GET: Groceries/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,23 +67,23 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var product = _blc.GetAllProducts()
-                .FirstOrDefault(m => m.Id == id);
-            if (product == null)
+            var grocery = _blc.GetAllGroceries()
+                .FirstOrDefault(m => m.Id == id); ;
+            if (grocery == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(grocery);
         }
 
-        // POST: Products/Edit/5
+        // POST: Groceries/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Category,Magnesium,Potassium,Sodium")] IProduct product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address")] Grocery grocery)
         {
-            if (id != product.Id)
+            if (id != grocery.Id)
             {
                 return NotFound();
             }
@@ -97,11 +92,11 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
             {
                 try
                 {
-                    _blc.EditProduct(product);
+                    _blc.EditGrocery(grocery);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!GroceryExists((int)grocery.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +107,10 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(grocery);
         }
 
-        // GET: Products/Delete/5
+        // GET: Groceries/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,34 +118,34 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var product = _blc.GetAllProducts()
+            var grocery = _blc.GetAllGroceries()
                 .FirstOrDefault(m => m.Id == id);
-            if (product == null)
+            if (grocery == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(grocery);
         }
 
-        // POST: Products/Delete/5
+        // POST: Groceries/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = _blc.GetAllProducts()
+            var grocery = _blc.GetAllGroceries()
                 .FirstOrDefault(m => m.Id == id);
-            if (product != null)
+            if (grocery != null)
             {
-                _blc.DeleteProduct(product);
+                _blc.DeleteGrocery(grocery);
             }
 
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool GroceryExists(int id)
         {
-            return _blc.GetAllProducts().Any(e => e.Id == id);
+            return _blc.GetAllGroceries().Any(e => e.Id == id);
         }
     }
 }

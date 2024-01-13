@@ -4,11 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>Warczynski.Zbaszyniak.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <RootNamespace> Warczynski.Zbaszyniak.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <UserSecretsId>e10505ff-8cf2-4630-b28c-d9ac9cd77d5e</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -18,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GroceryApp.BLC\GroceryApp.BLC.csproj" />
-    <ProjectReference Include="..\GroceryApp.DAOMock1\GroceryApp.DAOMock1.csproj" />
   </ItemGroup>
 
 </Project>

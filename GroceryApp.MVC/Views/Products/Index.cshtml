@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Warczynski.Zbaszyniak.GroceryApp.DAOMock1.BO.Product>
+﻿@model IEnumerable<Warczynski.Zbaszyniak.GroceryApp.Interfaces.IProduct>
 
 @{
     ViewData["Title"] = "Index";
@@ -30,6 +30,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Sodium)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grocery)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -53,6 +56,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Sodium)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grocery.Address)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
