@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
+using Warczynski.Zbaszyniak.GroceryApp.MVC.ViewModels;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {
     public class GroceriesController : Controller
     {
-        private readonly BLC.BLC _blc;
+        private readonly IDAO _blc;
 
-        public GroceriesController()
+        public GroceriesController(IDAO blc)
         {
-            _blc = BLCContainer.Instance;
+            _blc = blc;
         }
 
         // GET: Groceries
         public async Task<IActionResult> Index()
         {
-            return View(_blc.GetAllGroceries());
+            return View(_blc.GetAllGroceries().ToList());
         }
 
         // GET: Groceries/Details/5
@@ -54,7 +49,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Address")] IGrocery grocery)
+        public async Task<IActionResult> Create([Bind("Id,Name,Address")] Grocery grocery)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +81,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address")] IGrocery grocery)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Address")] Grocery grocery)
         {
             if (id != grocery.Id)
             {
@@ -101,7 +96,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GroceryExists(grocery.Id))
+                    if (!GroceryExists((int)grocery.Id))
                     {
                         return NotFound();
                     }

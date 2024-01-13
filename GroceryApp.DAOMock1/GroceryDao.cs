@@ -16,7 +16,7 @@ public class GroceryDao : IDAO
 
     public IEnumerable<IGrocery> GetAllGroceries()
     {
-        return _context.Groceries.ToList();
+        return _context.Groceries.AsEnumerable();
     }
 
     public IEnumerable<IProduct> GetAllProducts()
@@ -26,28 +26,27 @@ public class GroceryDao : IDAO
 
     public IGrocery SaveGrocery(IGrocery grocery)
     {
-        var saved = _context.Groceries.Add((Grocery)grocery);
+        var saved = _context.Groceries.Add(CastToGrocery(grocery));
         _context.SaveChanges();
         return saved.Entity;
     }
 
     public IProduct SaveProduct(IProduct product)
-    {
-        Product productModel = (Product)product;
-        var saved = _context.Products.Add(productModel);
+    {   
+        var saved = _context.Products.Add(CastToProduct(product));
         _context.SaveChanges();
         return saved.Entity;
     }
 
     public IGrocery EditGrocery(IGrocery grocery)
     {
-        var updated = _context.Groceries.Update((Grocery)grocery);
+        var updated = _context.Groceries.Update(CastToGrocery(grocery));
         _context.SaveChanges();
         return updated.Entity;
     }
     public IProduct EditProduct(IProduct product)
     {
-        var productModel = (Product)product;
+        var productModel = CastToProduct(product);
         var updated = _context.Products.Update(productModel);
         _context.SaveChanges();
         return updated.Entity;
@@ -55,7 +54,12 @@ public class GroceryDao : IDAO
 
     public void DeleteGrocery(IGrocery grocery)
     {
-        _context.Groceries.Remove((Grocery)grocery);
+        var groceryToRemove = _context.Groceries.FirstOrDefault(g => g.Id == grocery.Id);
+        if (groceryToRemove != null)
+        {
+            _context.Groceries.Remove(groceryToRemove);
+            _context.SaveChanges();
+        }
     }
 
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
@@ -116,5 +120,30 @@ public class GroceryDao : IDAO
     public IProduct GetProductTemplate()
     {
         return new Product();
+    }
+
+    private static Product CastToProduct(IProduct product)
+    {
+        return new Product()
+        {
+            Id = product.Id,
+            Name = product.Name,
+            Price = product.Price,
+            Category = product.Category,
+            Magnesium = product.Magnesium,
+            Potassium = product.Potassium,
+            Sodium = product.Sodium,
+            Grocery = product.Grocery,
+        };
+    }
+
+    private static Grocery CastToGrocery(IGrocery grocery)
+    {
+        return new Grocery()
+        {
+            Id = grocery.Id,
+            Name = grocery.Name,
+            Address = grocery.Address,
+        };
     }
 }

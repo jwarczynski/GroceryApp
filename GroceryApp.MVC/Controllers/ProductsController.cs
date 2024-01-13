@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
+using Warczynski.Zbaszyniak.GroceryApp.MVC.ViewModels;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly BLC.BLC _blc;
+        private readonly IDAO _blc;
 
-        public ProductsController()
+        public ProductsController(IDAO blc)
         {
-            _blc = BLCContainer.Instance;
+            _blc = blc;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(_blc.GetAllProducts());
+            return View(_blc.GetAllProducts().ToList());
         }
 
         // GET: Products/Details/5
@@ -46,7 +41,11 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            return View();
+            var modelView = new ProductModelView()
+            {
+                GroceriesIds = _blc.GetAllGroceries().Select(g=>(int)g.Id).ToList(),
+            };
+            return View(modelView);
         }
 
         // POST: Products/Create
@@ -54,14 +53,19 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Category,Magnesium,Potassium,Sodium")] IProduct product)
+        public async Task<IActionResult> Create([Bind("Name,Price,Category,Magnesium,Potassium,Sodium,GroceryId")] Product product)
         {
-            if (ModelState.IsValid)
+            product.Grocery = _blc.GetAllGroceries().Where(g=>g.Id == product.GroceryId).FirstOrDefault();
+            ModelState.ClearValidationState(nameof(Product));
+            if (TryValidateModel(product, nameof(Product)))
             {
                 _blc.SaveProduct(product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(new ProductModelView() { 
+                Product=product,
+                GroceriesIds = _blc.GetAllGroceries().Select(g => (int)g.Id).ToList(),
+            });
         }
 
         // GET: Products/Edit/5
@@ -78,7 +82,22 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            var productModelView = new ProductModelView()
+            {
+                Product = new Product()
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Category = product.Category,
+                    Magnesium = product.Magnesium,
+                    Potassium = product.Potassium,
+                    Sodium = product.Sodium,
+                    Grocery = product.Grocery,
+                },
+                GroceriesIds = _blc.GetAllGroceries().Select(g => (int)g.Id).ToList(),
+            };
+            return View(productModelView);
         }
 
         // POST: Products/Edit/5
@@ -86,14 +105,15 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Category,Magnesium,Potassium,Sodium")] IProduct product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Category,Magnesium,Potassium,Sodium,GroceryId")] Product product)
         {
             if (id != product.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            product.Grocery = _blc.GetAllGroceries().Where(g => g.Id == product.GroceryId).FirstOrDefault();
+            ModelState.ClearValidationState(nameof(Product));
+            if (TryValidateModel(product, nameof(Product)))
             {
                 try
                 {
@@ -101,7 +121,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists((int)product.Id))
                     {
                         return NotFound();
                     }
