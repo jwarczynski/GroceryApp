@@ -99,7 +99,8 @@
 
 
             <!-- DataGrid -->
-            <DataGrid Grid.Column="1" Name="ProductsDataGrid" ItemsSource="{Binding Products}" AutoGenerateColumns="False"
+            <DataGrid Grid.Row="0" Grid.Column="1" Name="ProductsDataGrid"
+                      ItemsSource="{Binding Products}" AutoGenerateColumns="False"
                       SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
                       Style="{StaticResource MyDataGridStyle}">
                 <DataGrid.Columns>

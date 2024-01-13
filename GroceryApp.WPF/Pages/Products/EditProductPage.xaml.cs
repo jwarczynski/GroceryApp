@@ -12,10 +12,10 @@ public partial class EditProductPage
     public EditProductPage(IProduct product, ObservableCollection<IProduct> products)
     {
         InitializeComponent();
+        Products = products;
         var productToEdit = product.Id == null ? product : BLCContainer.Instance.GetProductWithGrocery(product.Id.Value);
         var viewModel = new ProductViewModel() { Product = productToEdit};
         viewModel.RequestNavigation += NavigateBack;
-        Products = products;
         DataContext = viewModel;
     }
     

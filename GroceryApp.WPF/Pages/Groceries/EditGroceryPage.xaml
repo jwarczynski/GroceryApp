@@ -5,9 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:GroceryApp.WPF.Pages.Groceries"
       xmlns:validationRules="clr-namespace:GroceryApp.WPF.ValidationRules"
+      xmlns:viewModels="clr-namespace:GroceryApp.WPF.ViewModels"
       mc:Ignorable="d"
       Title="EditGroceryPage" Height="450" Width="800"
       Background="{StaticResource BackgroundBrush}">
+    
+    <Page.DataContext>
+        <viewModels:GroceryViewModel/>
+    </Page.DataContext>
 
     <Grid Margin="20">
         <Grid.Resources>
@@ -31,7 +36,7 @@
         <TextBox Grid.Row="0" Grid.Column="1"
                  Style="{StaticResource InputTextBoxStyle}">
             <TextBox.Text>
-                <Binding Path="Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Grocery.Name" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validationRules:NonEmptyInputRule ElementName="Name" />
                     </Binding.ValidationRules>
@@ -46,7 +51,7 @@
         <TextBox Grid.Row="1" Grid.Column="1"
                  Style="{StaticResource InputTextBoxStyle}">
             <TextBox.Text>
-                <Binding Path="Address" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
+                <Binding Path="Grocery.Address" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
                         <validationRules:NonEmptyInputRule ElementName="Address" />
                     </Binding.ValidationRules>
@@ -55,7 +60,7 @@
         </TextBox>
 
         <Button Grid.Row="2" Grid.Column="1"
-                Click="Save_Click"
+                Command="{Binding SaveCommand}"
                 Content="Save"
                 FontWeight="Bold"
                 Background="{StaticResource PrimaryBrush}"

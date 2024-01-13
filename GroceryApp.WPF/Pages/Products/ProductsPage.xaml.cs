@@ -1,6 +1,5 @@
 ﻿using System.Windows.Controls;
 using GroceryApp.WPF.ViewModels;
-using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Core;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
@@ -8,8 +7,6 @@ namespace GroceryApp.WPF.Pages.Products;
 
 public partial class ProductsPage
 {
-    private readonly BLC _blc = BLCContainer.Instance;
-
     public static ProductCategory[] ProductCategoryEnumValues =>
         (ProductCategory[])Enum.GetValues(typeof(ProductCategory));
 
