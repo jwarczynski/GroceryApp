@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Warczynski.Zbaszyniak.GroceryApp.BLC;
-using Warczynski.Zbaszyniak.GroceryApp.MVC.BO;
+using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 using Warczynski.Zbaszyniak.GroceryApp.MVC.ViewModels;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly BLC.BLC _blc = BLCContainer.Instance;
+        private readonly IDAO _blc;
 
-        public ProductsController() { }
+        public ProductsController(IDAO blc)
+        {
+            _blc = blc;
+        }
 
         // GET: Products
         public async Task<IActionResult> Index()

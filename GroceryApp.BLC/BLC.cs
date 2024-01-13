@@ -3,7 +3,7 @@ using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.BLC;
 
-public class BLC
+public class BLC : IDAO
 {
     private readonly IDAO _dao;
 

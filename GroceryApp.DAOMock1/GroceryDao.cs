@@ -16,7 +16,7 @@ public class GroceryDao : IDAO
 
     public IEnumerable<IGrocery> GetAllGroceries()
     {
-        return _context.Groceries.ToList();
+        return _context.Groceries.AsEnumerable();
     }
 
     public IEnumerable<IProduct> GetAllProducts()
@@ -54,7 +54,12 @@ public class GroceryDao : IDAO
 
     public void DeleteGrocery(IGrocery grocery)
     {
-        _context.Groceries.Remove(CastToGrocery(grocery));
+        var groceryToRemove = _context.Groceries.FirstOrDefault(g => g.Id == grocery.Id);
+        if (groceryToRemove != null)
+        {
+            _context.Groceries.Remove(groceryToRemove);
+            _context.SaveChanges();
+        }
     }
 
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)

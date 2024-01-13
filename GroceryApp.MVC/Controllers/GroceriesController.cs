@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Warczynski.Zbaszyniak.GroceryApp.BLC;
-using Warczynski.Zbaszyniak.GroceryApp.MVC.BO;
+using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
+using Warczynski.Zbaszyniak.GroceryApp.MVC.ViewModels;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {
     public class GroceriesController : Controller
     {
-        private readonly BLC.BLC _blc = BLCContainer.Instance;
+        private readonly IDAO _blc;
 
-        public GroceriesController()
+        public GroceriesController(IDAO blc)
         {
-
+            _blc = blc;
         }
 
         // GET: Groceries
