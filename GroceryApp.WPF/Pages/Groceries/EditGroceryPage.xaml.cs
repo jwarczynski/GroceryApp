@@ -1,47 +1,29 @@
-﻿using System.Windows;
-using GroceryApp.WPF.Validations;
-using Warczynski.Zbaszyniak.GroceryApp.BLC;
+﻿using System.Collections.ObjectModel;
+using GroceryApp.WPF.ViewModels;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
 namespace GroceryApp.WPF.Pages.Groceries;
 
 public partial class EditGroceryPage
 {
-    private IGrocery Grocery { get; }
-    public EditGroceryPage(IGrocery grocery)
+    ObservableCollection<IGrocery> Groceries { get; set; }
+
+    public EditGroceryPage(IGrocery grocery, ObservableCollection<IGrocery> groceries)
     {
         InitializeComponent();
-        Grocery = grocery;
-        DataContext = Grocery;
+        Groceries = groceries;
+        var viewModel = new GroceryViewModel() {Grocery = grocery};
+        viewModel.RequestNavigation += NavigateBack;
+        DataContext = viewModel;
     }
-
-    private void Save_Click(object sender, RoutedEventArgs e)
+    
+    private void NavigateBack(IGrocery grocery)
     {
-        if (!ValidationHelper.AreAllTextBoxesValid(this))
+        if (grocery.Id != 0 && grocery.Id != null && Groceries.All(g => g.Id != grocery.Id))
         {
-            return;
+            Groceries.Add(grocery);
         }
-        if (Grocery.Address == null || string.IsNullOrWhiteSpace(Grocery.Address))
-        {
-            MessageBox.Show("PLease enter address.");
-            return;
-        }
-        if (Grocery.Name == null || string.IsNullOrWhiteSpace(Grocery.Name))
-        {
-            MessageBox.Show("PLease enter name.");
-            return;
-        }
-        
-        var saved = Grocery.Id == null ? BLCContainer.Instance.SaveGrocery(Grocery) : BLCContainer.Instance.EditGrocery(Grocery);
-        ShowSuccessMessage(saved);
         NavigationService?.GoBack();
     }
 
-    private void ShowSuccessMessage(IGrocery saved)
-    {
-        MessageBox.Show($"Saved Grocery: " + "\n" +
-                        $" Id:  {saved.Id}" + "\n" +
-                        $" Name: {saved.Name}" + "\n" +
-                        $" Address: {saved.Address}");
-    }
 }

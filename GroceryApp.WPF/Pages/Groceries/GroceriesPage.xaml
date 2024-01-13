@@ -4,13 +4,20 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:GroceryApp.WPF"
+      xmlns:viewModels="clr-namespace:GroceryApp.WPF.ViewModels"
       mc:Ignorable="d"
       Title="GroceriesPage" Height="450" Width="800"
       Background="{StaticResource BackgroundBrush}">
     
+    <Page.DataContext>
+        <viewModels:GroceriesViewModel/>   
+    </Page.DataContext>
+    
     <StackPanel>
         <Grid Margin="10">
-            <DataGrid Name="GroceriesDataGrid" ItemsSource="{Binding}" AutoGenerateColumns="False"
+            <DataGrid Name="GroceriesDataGrid"
+                      ItemsSource="{Binding Groceries}" AutoGenerateColumns="False"
+                      SelectedItem="{Binding SelectedGrocery, Mode=TwoWay}"
                       Style="{StaticResource MyDataGridStyle}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
@@ -18,7 +25,9 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Remove" Click="Remove_Click"
+                                <Button Content="Remove"
+                                        Command="{Binding DataContext.RemoveCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        CommandParameter="{Binding}"
                                         Background="{StaticResource PrimaryBrush}"
                                         Foreground="{StaticResource BackgroundBrush}" />
                             </DataTemplate>
@@ -27,7 +36,9 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Update" Click="Update_Click"
+                                <Button Content="Update"
+                                        Command="{Binding DataContext.UpdateGroceryCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+                                        CommandParameter="{Binding}"
                                         Background="{StaticResource SecondaryBrush}"
                                         Foreground="{StaticResource BackgroundBrush}" />
                             </DataTemplate>
@@ -37,8 +48,11 @@
             </DataGrid>
         </Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Add" Width="80" Margin="5" Click="Add_Click"
-                    Background="{StaticResource PrimaryBrush}" Foreground="{StaticResource BackgroundBrush}"/>
+            <Button Content="Add"
+                    Command="{Binding AddCommand}"
+                    Width="80" Margin="5"
+                    Background="{StaticResource PrimaryBrush}"
+                    Foreground="{StaticResource BackgroundBrush}"/>
         </StackPanel>
     </StackPanel>
 </Page>
