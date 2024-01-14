@@ -50,7 +50,7 @@
                 <select asp-for="Product.GroceryId" class="form-control">
                     @foreach (var grocery in Model.Groceries)
                     {
-                        <option value="@grocery.Id">@grocery.Name</option>
+                        <option value="@grocery.Id" selected="@(grocery.Id == Model.Product.Grocery.Id)">@grocery.Name</option>
                     }
                 </select>
             </div>

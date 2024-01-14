@@ -21,7 +21,19 @@ public class GroceryDao : IDAO
 
     public IEnumerable<IProduct> GetAllProducts()
     {
-        return _context.Products.AsEnumerable();
+        var products = new List<IProduct>();
+        foreach (Product product in _context.Products)
+        {
+            if (product.Id.HasValue)
+            {
+                products.Add(GetProductWithGrocery((int)product.Id));
+            }
+            else
+            {
+                products.Add(product);
+            }
+        }
+        return products;
     }
 
     public IGrocery SaveGrocery(IGrocery grocery)

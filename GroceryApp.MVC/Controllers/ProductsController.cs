@@ -17,7 +17,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(_blc.GetAllProducts().ToList());
+            return View(_blc.GetAllProducts());
         }
 
         // GET: Products/Details/5
