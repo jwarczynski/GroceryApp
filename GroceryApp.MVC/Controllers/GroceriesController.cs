@@ -15,8 +15,10 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         }
 
         // GET: Groceries
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchString)
         {
+            if (!String.IsNullOrEmpty(SearchString))
+                return View(_blc.GetAllGroceries().Where(g => g.Name.Contains(SearchString)));
             return View(_blc.GetAllGroceries().ToList());
         }
 

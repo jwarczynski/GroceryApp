@@ -15,8 +15,10 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string SearchString)
         {
+            if (!String.IsNullOrEmpty(SearchString))
+                return View(_blc.GetAllProducts().Where(p => p.Name.Contains(SearchString)));
             return View(_blc.GetAllProducts());
         }
 
@@ -41,7 +43,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            var modelView = new ProductModelView()
+            var modelView = new ProductViewModel()
             {
                 Groceries = _blc.GetAllGroceries(),
             };
@@ -62,7 +64,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 _blc.SaveProduct(product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(new ProductModelView() { 
+            return View(new ProductViewModel() { 
                 Product=product,
                 Groceries = _blc.GetAllGroceries(),
             });
@@ -82,7 +84,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
             {
                 return NotFound();
             }
-            var productModelView = new ProductModelView()
+            var productModelView = new ProductViewModel()
             {
                 Product = new Product()
                 {
