@@ -43,7 +43,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         {
             var modelView = new ProductModelView()
             {
-                GroceriesIds = _blc.GetAllGroceries().Select(g=>(int)g.Id).ToList(),
+                Groceries = _blc.GetAllGroceries(),
             };
             return View(modelView);
         }
@@ -64,7 +64,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
             }
             return View(new ProductModelView() { 
                 Product=product,
-                GroceriesIds = _blc.GetAllGroceries().Select(g => (int)g.Id).ToList(),
+                Groceries = _blc.GetAllGroceries(),
             });
         }
 
@@ -95,7 +95,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                     Sodium = product.Sodium,
                     Grocery = product.Grocery,
                 },
-                GroceriesIds = _blc.GetAllGroceries().Select(g => (int)g.Id).ToList(),
+                Groceries = _blc.GetAllGroceries(),
             };
             return View(productModelView);
         }

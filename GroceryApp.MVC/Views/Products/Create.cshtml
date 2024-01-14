@@ -46,7 +46,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Product.GroceryId" class="control-label"></label>
-                <select asp-for="Product.GroceryId" class="form-control" asp-items="@(new SelectList(Model.GroceriesIds))"></select>
+                <select asp-for="Product.GroceryId" class="form-control">
+                    @foreach (var grocery in Model.Groceries)
+                    {
+                        <option value="@grocery.Id">@grocery.Name</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
