@@ -1,7 +1,6 @@
 ﻿using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
-using Warczynski.Zbaszyniak.GroceryApp.MVC.ViewModels;
 
-namespace Warczynski.Zbaszyniak.GroceryApp.MVC.ViewModels
+namespace Models
 {
     public class ProductViewModel
     {
