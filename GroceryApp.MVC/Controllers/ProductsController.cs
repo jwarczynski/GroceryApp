@@ -1,25 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
-using Models;
+using Warczynski.Zbaszyniak.GroceryApp.MVC.Models;
+using Warczynski.Zbaszyniak.GroceryApp.MVC.Filters;
+using Warczynski.Zbaszyniak.GroceryApp.Core;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly IDAO _blc;
+        private readonly ProductsViewModel _productsViewModel;
 
         public ProductsController(IDAO blc)
         {
             _blc = blc;
+            _productsViewModel = new ProductsViewModel(blc);
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(string SearchString)
+        public async Task<IActionResult> Index(string SearchName, ProductCategory SearchCategory)
         {
-            if (!String.IsNullOrEmpty(SearchString))
-                return View(_blc.GetAllProducts().Where(p => p.Name.Contains(SearchString)));
-            return View(_blc.GetAllProducts());
+            var filter = new Filter()
+            {
+                Name = SearchName,
+                Categories = new[] { SearchCategory }
+            };
+            _productsViewModel.ApplyFiltersCommand.Execute(filter);
+            return View(_productsViewModel);
         }
 
         // GET: Products/Details/5

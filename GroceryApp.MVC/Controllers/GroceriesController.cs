@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
-using Models;
+using Warczynski.Zbaszyniak.GroceryApp.MVC.Models;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {

@@ -77,7 +77,9 @@ public class GroceryDao : IDAO
     public IEnumerable<IProduct> GetProductsByFilter(IFilter filter)
     {
         var query = GetQuery(filter);
-        return query.ToList();
+        var products = query.ToList();
+        products.ForEach(p => GetProductWithGrocery((int)p.Id));
+        return products;
     }
 
     private IQueryable<Product> GetQuery(IFilter filter)
@@ -86,7 +88,7 @@ public class GroceryDao : IDAO
 
         if (!string.IsNullOrEmpty(filter.Name))
         {
-            query = query.Where(p => p.Name == filter.Name);
+            query = query.Where(p => p.Name.Contains(filter.Name));
         }
 
         if (filter.Categories != null && filter.Categories.Any())

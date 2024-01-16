@@ -1,6 +1,6 @@
 ﻿using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
-namespace Models
+namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Models
 {
     public class Grocery : IGrocery
     {
