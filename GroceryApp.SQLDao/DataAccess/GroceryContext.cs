@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Warczynski.Zbaszyniak.GroceryApp.DAOMock1.BO;
+using Warczynski.Zbaszyniak.GroceryApp.SQLDao.BO;
 
-namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock1.DataAccess;
+namespace Warczynski.Zbaszyniak.GroceryApp.SQLDao.DataAccess;
 
 public class GroceryContext: DbContext
 {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Warczynski.Zbaszyniak.GroceryApp.DAOMock1.BO;
-using Warczynski.Zbaszyniak.GroceryApp.DAOMock1.DataAccess;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
+using Warczynski.Zbaszyniak.GroceryApp.SQLDao.BO;
+using Warczynski.Zbaszyniak.GroceryApp.SQLDao.DataAccess;
 
-namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock1;
+namespace Warczynski.Zbaszyniak.GroceryApp.SQLDao;
 
 public class GroceryDao : IDAO
 {

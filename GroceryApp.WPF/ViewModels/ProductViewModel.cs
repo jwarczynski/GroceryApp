@@ -18,7 +18,7 @@ public class ProductViewModel
     public ProductViewModel()
     {
         SaveCommand = new RelayCommand(SaveMethod);
-        Groceries = BLCContainer.Instance.GetAllGroceries();
+        Groceries = BLCContainer.Instance.GetAllGroceries().ToList();
     }
     
     private void SaveMethod(object parameter)

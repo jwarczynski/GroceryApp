@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryApp.Core", "GroceryA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryApp.Interfaces", "GroceryApp.Interfaces\GroceryApp.Interfaces.csproj", "{0A2CA4B3-A72D-4A14-8E98-097634D538AB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryApp.DAOMock1", "GroceryApp.DAOMock1\GroceryApp.DAOMock1.csproj", "{8908DD4D-F63A-4025-8280-5E118E054060}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryApp.SQLDao", "GroceryApp.SQLDao\GroceryApp.SQLDao.csproj", "{8908DD4D-F63A-4025-8280-5E118E054060}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GroceryApp.BLC", "GroceryApp.BLC\GroceryApp.BLC.csproj", "{1F30E208-A168-42CA-8C9C-C49A0B852FE8}"
 EndProject

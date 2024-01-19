@@ -2,7 +2,7 @@
 using Warczynski.Zbaszyniak.GroceryApp.Core;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 
-namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock1.BO;
+namespace Warczynski.Zbaszyniak.GroceryApp.SQLDao.BO;
 
 public class Product : IProduct
 {
