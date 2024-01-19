@@ -4,27 +4,28 @@ using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
 using Warczynski.Zbaszyniak.GroceryApp.MVC.Models;
 using Warczynski.Zbaszyniak.GroceryApp.MVC.Filters;
 using Warczynski.Zbaszyniak.GroceryApp.Core;
+using System.ComponentModel;
 
 namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly IDAO _blc;
         private readonly ProductsViewModel _productsViewModel;
+        private readonly GroceriesViewModel _groceriesViewModel;
 
-        public ProductsController(IDAO blc)
+        public ProductsController(ProductsViewModel productsViewModel, GroceriesViewModel groceriesViewModel)
         {
-            _blc = blc;
-            _productsViewModel = new ProductsViewModel(blc);
+            _productsViewModel = productsViewModel;
+            _groceriesViewModel = groceriesViewModel;
         }
 
         // GET: Products
-        public async Task<IActionResult> Index(string SearchName, ProductCategory SearchCategory)
+        public async Task<IActionResult> Index(string searchName, ICollection<ProductCategory> searchCategories)
         {
             var filter = new Filter()
             {
-                Name = SearchName,
-                Categories = new[] { SearchCategory }
+                Name = searchName,
+                Categories = searchCategories
             };
             _productsViewModel.ApplyFiltersCommand.Execute(filter);
             return View(_productsViewModel);
@@ -38,8 +39,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var product = _blc.GetAllProducts()
-                .FirstOrDefault(m => m.Id == id);
+            var product = _productsViewModel.Products
+                .SingleOrDefault(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -53,7 +54,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         {
             var modelView = new ProductViewModel()
             {
-                Groceries = _blc.GetAllGroceries(),
+                Groceries = _groceriesViewModel.Groceries,
             };
             return View(modelView);
         }
@@ -65,16 +66,17 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Price,Category,Magnesium,Potassium,Sodium,GroceryId")] Product product)
         {
-            product.Grocery = _blc.GetAllGroceries().Where(g=>g.Id == product.GroceryId).FirstOrDefault();
+            product.Grocery = _groceriesViewModel.Groceries.Where(g => g.Id == product.GroceryId).SingleOrDefault();
             ModelState.ClearValidationState(nameof(Product));
             if (TryValidateModel(product, nameof(Product)))
             {
-                _blc.SaveProduct(product);
+                _productsViewModel.AddCommand.Execute(product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(new ProductViewModel() { 
-                Product=product,
-                Groceries = _blc.GetAllGroceries(),
+            return View(new ProductViewModel()
+            {
+                Product = product,
+                Groceries = _groceriesViewModel.Groceries,
             });
         }
 
@@ -86,8 +88,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var product = _blc.GetAllProducts()
-                .FirstOrDefault(m => m.Id == id);
+            var product = _productsViewModel.Products
+                .SingleOrDefault(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -105,7 +107,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                     Sodium = product.Sodium,
                     Grocery = product.Grocery,
                 },
-                Groceries = _blc.GetAllGroceries(),
+                Groceries = _groceriesViewModel.Groceries,
             };
             return View(productModelView);
         }
@@ -121,13 +123,13 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
             {
                 return NotFound();
             }
-            product.Grocery = _blc.GetAllGroceries().Where(g => g.Id == product.GroceryId).FirstOrDefault();
+            product.Grocery = _groceriesViewModel.Groceries.Where(g => g.Id == product.GroceryId).SingleOrDefault();
             ModelState.ClearValidationState(nameof(Product));
             if (TryValidateModel(product, nameof(Product)))
             {
                 try
                 {
-                    _blc.EditProduct(product);
+                    _productsViewModel.UpdateProductCommand.Execute(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -153,8 +155,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var product = _blc.GetAllProducts()
-                .FirstOrDefault(m => m.Id == id);
+            var product = _productsViewModel.Products
+                .SingleOrDefault(m => m.Id == id);
             if (product == null)
             {
                 return NotFound();
@@ -168,11 +170,11 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = _blc.GetAllProducts()
-                .FirstOrDefault(m => m.Id == id);
+            var product = _productsViewModel.Products
+                .SingleOrDefault(m => m.Id == id);
             if (product != null)
             {
-                _blc.DeleteProduct(product);
+                _productsViewModel.RemoveCommand.Execute(product);
             }
 
             return RedirectToAction(nameof(Index));
@@ -180,7 +182,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 
         private bool ProductExists(int id)
         {
-            return _blc.GetAllProducts().Any(e => e.Id == id);
+            return _productsViewModel.Products.Any(e => e.Id == id);
         }
     }
 }

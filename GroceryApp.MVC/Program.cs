@@ -1,5 +1,6 @@
 using Warczynski.Zbaszyniak.GroceryApp.BLC;
 using Warczynski.Zbaszyniak.GroceryApp.Interfaces;
+using Warczynski.Zbaszyniak.GroceryApp.MVC.Models;
 
 namespace Warczynski.Zbaszyniak.MVC;
 
@@ -13,6 +14,8 @@ internal class Program
         builder.Services.AddControllersWithViews();
 
         builder.Services.AddScoped<IDAO>(sp => new BLC("GroceryApp.DAOMock1.dll"));
+        builder.Services.AddScoped<ProductsViewModel>();
+        builder.Services.AddScoped<GroceriesViewModel>();
 
         var app = builder.Build();
 

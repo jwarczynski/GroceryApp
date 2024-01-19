@@ -13,10 +13,9 @@
 
 <form asp-controller="Products" asp-action="Index" method="get">
     <p>
-        Name: <input type="text" name="SearchName" />
+        Name: <input type="text" name="searchName" />
         Category:
-        <select name="SearchCategory" asp-items="@(new SelectList(Enum.GetValues(typeof(ProductCategory))))"></select>
-        Price:
+        <select multiple name="searchCategories" asp-items="@(new MultiSelectList(Enum.GetValues(typeof(ProductCategory))))"></select>
         <input type="submit" value="Filter" />
     </p>
 </form>

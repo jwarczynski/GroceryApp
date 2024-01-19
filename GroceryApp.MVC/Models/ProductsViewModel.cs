@@ -12,8 +12,6 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Models;
 
 public class ProductsViewModel : INotifyCollectionChanged, INotifyPropertyChanged
 {
-    public event Action<IProduct>? RequestNavigation;
-
     public event NotifyCollectionChangedEventHandler? CollectionChanged;
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -69,13 +67,19 @@ public class ProductsViewModel : INotifyCollectionChanged, INotifyPropertyChange
     {
         if (parameter is IProduct product)
         {
-            RequestNavigation?.Invoke(product);
+            _blc.EditProduct(product);
+            Products.Remove(Products.Where(p => p.Id == product.Id).Single());
+            Products.Add(product);
         }
     }
 
     private void AddProduct(object parameter)
     {
-        RequestNavigation?.Invoke(_blc.GetProductTemplate());
+        if (parameter is IProduct product)
+        {
+            _blc.SaveProduct(product);
+            Products.Add(product);
+        }
     }
 
     public void OnCollectionChanged(NotifyCollectionChangedEventArgs e)

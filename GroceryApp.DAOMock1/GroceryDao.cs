@@ -52,12 +52,14 @@ public class GroceryDao : IDAO
 
     public IGrocery EditGrocery(IGrocery grocery)
     {
+        _context.Entry(_context.Groceries.Where(g => g.Id == grocery.Id).Single()).State = EntityState.Detached;
         var updated = _context.Groceries.Update(CastToGrocery(grocery));
         _context.SaveChanges();
         return updated.Entity;
     }
     public IProduct EditProduct(IProduct product)
     {
+        _context.Entry(_context.Products.Where(p => p.Id == product.Id).Single()).State = EntityState.Detached;
         var productModel = CastToProduct(product);
         var updated = _context.Products.Update(productModel);
         _context.SaveChanges();
@@ -136,9 +138,9 @@ public class GroceryDao : IDAO
         return new Product();
     }
 
-    private static Product CastToProduct(IProduct product)
+    private Product CastToProduct(IProduct product)
     {
-        return new Product()
+        var newProduct = new Product()
         {
             Id = product.Id,
             Name = product.Name,
@@ -149,15 +151,17 @@ public class GroceryDao : IDAO
             Sodium = product.Sodium,
             Grocery = product.Grocery,
         };
+        return newProduct;
     }
 
-    private static Grocery CastToGrocery(IGrocery grocery)
+    private Grocery CastToGrocery(IGrocery grocery)
     {
-        return new Grocery()
+        var newGrocery =  new Grocery()
         {
             Id = grocery.Id,
             Name = grocery.Name,
             Address = grocery.Address,
         };
+        return newGrocery;
     }
 }

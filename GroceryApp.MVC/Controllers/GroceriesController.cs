@@ -7,19 +7,18 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 {
     public class GroceriesController : Controller
     {
-        private readonly IDAO _blc;
+        private readonly GroceriesViewModel _groceriesViewModel;
 
-        public GroceriesController(IDAO blc)
+        public GroceriesController(GroceriesViewModel groceriesViewModel)
         {
-            _blc = blc;
+            _groceriesViewModel = groceriesViewModel;
         }
 
         // GET: Groceries
-        public async Task<IActionResult> Index(string SearchString)
+        public async Task<IActionResult> Index(string searchString)
         {
-            if (!String.IsNullOrEmpty(SearchString))
-                return View(_blc.GetAllGroceries().Where(g => g.Name.Contains(SearchString)));
-            return View(_blc.GetAllGroceries().ToList());
+            _groceriesViewModel.ApplyFiltersCommand.Execute(searchString);
+            return View(_groceriesViewModel);
         }
 
         // GET: Groceries/Details/5
@@ -30,8 +29,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var grocery = _blc.GetAllGroceries()
-                .FirstOrDefault(m => m.Id == id);
+            var grocery = _groceriesViewModel.Groceries
+                .SingleOrDefault(m => m.Id == id);
             if (grocery == null)
             {
                 return NotFound();
@@ -55,7 +54,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                _blc.SaveGrocery(grocery);
+                _groceriesViewModel.AddCommand.Execute(grocery);
                 return RedirectToAction(nameof(Index));
             }
             return View(grocery);
@@ -69,8 +68,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var grocery = _blc.GetAllGroceries()
-                .FirstOrDefault(m => m.Id == id); ;
+            var grocery = _groceriesViewModel.Groceries
+                .SingleOrDefault(m => m.Id == id); ;
             if (grocery == null)
             {
                 return NotFound();
@@ -94,7 +93,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
             {
                 try
                 {
-                    _blc.EditGrocery(grocery);
+                    _groceriesViewModel.UpdateGroceryCommand.Execute(grocery);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -120,8 +119,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
                 return NotFound();
             }
 
-            var grocery = _blc.GetAllGroceries()
-                .FirstOrDefault(m => m.Id == id);
+            var grocery = _groceriesViewModel.Groceries
+                .SingleOrDefault(m => m.Id == id);
             if (grocery == null)
             {
                 return NotFound();
@@ -135,11 +134,11 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var grocery = _blc.GetAllGroceries()
-                .FirstOrDefault(m => m.Id == id);
+            var grocery = _groceriesViewModel.Groceries
+                .SingleOrDefault(m => m.Id == id);
             if (grocery != null)
             {
-                _blc.DeleteGrocery(grocery);
+                _groceriesViewModel.RemoveCommand.Execute(grocery);
             }
 
             return RedirectToAction(nameof(Index));
@@ -147,7 +146,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 
         private bool GroceryExists(int id)
         {
-            return _blc.GetAllGroceries().Any(e => e.Id == id);
+            return _groceriesViewModel.Groceries.Any(e => e.Id == id);
         }
     }
 }
