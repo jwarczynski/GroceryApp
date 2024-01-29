@@ -8,15 +8,22 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
     public class GroceriesController : Controller
     {
         private readonly GroceriesViewModel _groceriesViewModel;
+        private readonly ApplicationUsersViewModel _applicationUsersViewModel;
 
-        public GroceriesController(GroceriesViewModel groceriesViewModel)
+        public GroceriesController(
+            GroceriesViewModel groceriesViewModel,
+            ApplicationUsersViewModel applicationUsersViewModel
+            )
         {
             _groceriesViewModel = groceriesViewModel;
+            _applicationUsersViewModel = applicationUsersViewModel;
         }
 
         // GET: Groceries
         public async Task<IActionResult> Index(string searchString)
         {
+            if(!_applicationUsersViewModel.IsLoggedIn()) 
+                RedirectToAction(nameof(Index), "HomeController");
             _groceriesViewModel.ApplyFiltersCommand.Execute(searchString);
             return View(_groceriesViewModel);
         }
@@ -24,6 +31,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // GET: Groceries/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            if (!_applicationUsersViewModel.IsLoggedIn())
+                RedirectToAction(nameof(Index), "HomeController");
             if (id == null)
             {
                 return NotFound();
@@ -42,6 +51,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // GET: Groceries/Create
         public IActionResult Create()
         {
+            if (!_applicationUsersViewModel.IsLoggedIn())
+                RedirectToAction(nameof(Index), "HomeController");
             return View();
         }
 
@@ -63,6 +74,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // GET: Groceries/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (!_applicationUsersViewModel.IsLoggedIn())
+                RedirectToAction(nameof(Index), "HomeController");
             if (id == null)
             {
                 return NotFound();
@@ -114,6 +127,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         // GET: Groceries/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (!_applicationUsersViewModel.IsLoggedIn())
+                RedirectToAction(nameof(Index), "HomeController");
             if (id == null)
             {
                 return NotFound();

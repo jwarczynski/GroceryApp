@@ -20,7 +20,11 @@ public class ProductsControllerTests
 
         var productsViewModel = new ProductsViewModel(_daoMock.Object);
         var groceriesViewModelMock = new Mock<GroceriesViewModel>(_daoMock.Object);
-        _controller = new ProductsController(productsViewModel, groceriesViewModelMock.Object);
+        var applicationUsersViewModel = new Mock<ApplicationUsersViewModel>(_daoMock.Object);
+        _controller = new ProductsController(
+            productsViewModel, 
+            groceriesViewModelMock.Object,
+            applicationUsersViewModel.Object);
     }
 
     [Test]

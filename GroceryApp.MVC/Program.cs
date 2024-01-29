@@ -16,6 +16,7 @@ internal class Program
         builder.Services.AddScoped<IDAO>(sp => new BLC("GroceryApp.SQLDao.dll"));
         builder.Services.AddScoped<ProductsViewModel>();
         builder.Services.AddScoped<GroceriesViewModel>();
+        builder.Services.AddScoped<ApplicationUsersViewModel>();
 
         var app = builder.Build();
 
