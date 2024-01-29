@@ -169,7 +169,6 @@ public class GroceryDao : IDAO
     {
         var newApplicationUser = new ApplicationUser()
         {
-            Id = applicationUser.Id,
             Name = applicationUser.Name,
             Password = applicationUser.Password,
         };
@@ -181,13 +180,14 @@ public class GroceryDao : IDAO
         return _context.Users.AsEnumerable();
     }
 
-    public IApplicationUser GetApplicationUser(int id)
+    public IApplicationUser GetApplicationUser(string name)
     {
-        return _context.Users.Where(u => u.Id == id).Single();
+        return _context.Users.Where(u => u.Name == name).Single();
     }
 
-    public IApplicationUser SaveApplicationUser(IApplicationUser user)
+    public IApplicationUser? SaveApplicationUser(IApplicationUser user)
     {
+        if (_context.Users.Where(u => u.Name == user.Name).Any()) return null;
         var saved = _context.Add(CastToApplicationUser(user));
         _context.SaveChanges();
         return saved.Entity;
@@ -195,7 +195,7 @@ public class GroceryDao : IDAO
 
     public IApplicationUser EditApplicationUser(IApplicationUser user)
     {
-        _context.Entry(_context.Users.Where(u => u.Id == user.Id).Single()).State = EntityState.Detached;
+        _context.Entry(_context.Users.Where(u => u.Name == user.Name).Single()).State = EntityState.Detached;
         var applicationUserModel = CastToApplicationUser(user);
         var updated = _context.Users.Update(applicationUserModel);
         _context.SaveChanges();
@@ -204,7 +204,7 @@ public class GroceryDao : IDAO
 
     public void DeleteApplicationUser(IApplicationUser user)
     {
-        var userToRemove = _context.Users.FirstOrDefault(u => u.Id == user.Id);
+        var userToRemove = _context.Users.FirstOrDefault(u => u.Name == user.Name);
         if (userToRemove != null)
         {
             _context.Users.Remove(userToRemove);

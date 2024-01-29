@@ -92,9 +92,9 @@ public class BLC : IDAO
         return _dao.GetApplicationUsers();
     }
 
-    public IApplicationUser GetApplicationUser(int id)
+    public IApplicationUser GetApplicationUser(string name)
     {
-        return _dao.GetApplicationUser(id);
+        return _dao.GetApplicationUser(name);
     }
 
     public IApplicationUser SaveApplicationUser(IApplicationUser user)

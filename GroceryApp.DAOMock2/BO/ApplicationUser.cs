@@ -9,7 +9,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock2.BO
 {
     internal class ApplicationUser : IApplicationUser
     {
-        int IApplicationUser.Id { get; set; }
+        int Id { get; set; }
         string IApplicationUser.Name { get; set; }
         string IApplicationUser.Password { get; set; }
     }
