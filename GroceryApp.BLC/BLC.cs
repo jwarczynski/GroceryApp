@@ -86,4 +86,29 @@ public class BLC : IDAO
     {
         return _dao.GetProductTemplate();
     }
+
+    public IEnumerable<IApplicationUser> GetApplicationUsers()
+    {
+        return _dao.GetApplicationUsers();
+    }
+
+    public IApplicationUser GetApplicationUser(int id)
+    {
+        return _dao.GetApplicationUser(id);
+    }
+
+    public IApplicationUser SaveApplicationUser(IApplicationUser user)
+    {
+        return _dao.SaveApplicationUser(user);
+    }
+
+    public IApplicationUser EditApplicationUser(IApplicationUser user)
+    {
+        return _dao.EditApplicationUser(user);
+    }
+
+    public void DeleteApplicationUser(IApplicationUser user)
+    {
+        _dao.DeleteApplicationUser(user);
+    }
 }

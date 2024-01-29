@@ -164,4 +164,51 @@ public class GroceryDao : IDAO
         };
         return newGrocery;
     }
+
+    private ApplicationUser CastToApplicationUser(IApplicationUser applicationUser)
+    {
+        var newApplicationUser = new ApplicationUser()
+        {
+            Id = applicationUser.Id,
+            Name = applicationUser.Name,
+            Password = applicationUser.Password,
+        };
+        return newApplicationUser;
+    }
+
+    public IEnumerable<IApplicationUser> GetApplicationUsers()
+    {
+        return _context.Users.AsEnumerable();
+    }
+
+    public IApplicationUser GetApplicationUser(int id)
+    {
+        return _context.Users.Where(u => u.Id == id).Single();
+    }
+
+    public IApplicationUser SaveApplicationUser(IApplicationUser user)
+    {
+        var saved = _context.Add(CastToApplicationUser(user));
+        _context.SaveChanges();
+        return saved.Entity;
+    }
+
+    public IApplicationUser EditApplicationUser(IApplicationUser user)
+    {
+        _context.Entry(_context.Users.Where(u => u.Id == user.Id).Single()).State = EntityState.Detached;
+        var applicationUserModel = CastToApplicationUser(user);
+        var updated = _context.Users.Update(applicationUserModel);
+        _context.SaveChanges();
+        return updated.Entity;
+    }
+
+    public void DeleteApplicationUser(IApplicationUser user)
+    {
+        var userToRemove = _context.Users.FirstOrDefault(u => u.Id == user.Id);
+        if (userToRemove != null)
+        {
+            _context.Users.Remove(userToRemove);
+            _context.SaveChanges();
+        }
+    }
 }

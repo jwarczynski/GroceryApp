@@ -8,6 +8,7 @@ public class DAOMock : IDAO
 {
     private List<IGrocery> _groceries;
     private List<IProduct> _products;
+    private List<IApplicationUser> _users;
 
     public DAOMock()
     {
@@ -128,5 +129,33 @@ public class DAOMock : IDAO
     public IProduct GetProductTemplate()
     {
         return new Product();
+    }
+
+    public IEnumerable<IApplicationUser> GetApplicationUsers()
+    {
+        return _users.AsEnumerable();
+    }
+
+    public IApplicationUser GetApplicationUser(int id)
+    {
+        return _users.Where(u => u.Id == id).Single();
+    }
+
+    public IApplicationUser SaveApplicationUser(IApplicationUser user)
+    {
+        _users.Add(user);
+        return user;
+    }
+
+    public IApplicationUser EditApplicationUser(IApplicationUser user)
+    {
+        _users.Remove(_users.Where(u => u.Id == user.Id).Single());
+        _users.Add(user);
+        return user;
+    }
+
+    public void DeleteApplicationUser(IApplicationUser user)
+    {
+        _users.Remove(_users.Where(u => u.Id == user.Id).Single());
     }
 }

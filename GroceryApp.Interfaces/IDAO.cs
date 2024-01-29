@@ -14,4 +14,9 @@ public interface IDAO
     IGrocery GetGroceryTemplate();
     IProduct GetProductWithGrocery(int id);
     IProduct GetProductTemplate();
+    IEnumerable<IApplicationUser> GetApplicationUsers();
+    IApplicationUser GetApplicationUser(int id);
+    IApplicationUser SaveApplicationUser(IApplicationUser user);
+    IApplicationUser EditApplicationUser(IApplicationUser user);
+    void DeleteApplicationUser(IApplicationUser user);
 }

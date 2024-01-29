@@ -16,6 +16,7 @@ public class GroceryContext: DbContext
     
     public DbSet<Grocery> Groceries { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<ApplicationUser> Users { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder options)
         => options.UseSqlite($"Data Source={DbPath}");
