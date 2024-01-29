@@ -169,7 +169,7 @@ public class GroceryDao : IDAO
     {
         var newApplicationUser = new ApplicationUser()
         {
-            Id = applicationUser.Id,
+            Id = applicationUser.Id!.Value,
             Name = applicationUser.Name,
             Password = applicationUser.Password,
         };
@@ -179,6 +179,11 @@ public class GroceryDao : IDAO
     public IEnumerable<IApplicationUser> GetApplicationUsers()
     {
         return _context.Users.AsEnumerable();
+    }
+
+    public IApplicationUser? GetApplicationUser(string name)
+    {
+        throw new NotImplementedException();
     }
 
     public IApplicationUser GetApplicationUser(int id)

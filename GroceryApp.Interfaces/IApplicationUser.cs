@@ -8,6 +8,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.Interfaces
 {
     public interface IApplicationUser
     {
+        public int? Id { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
     }

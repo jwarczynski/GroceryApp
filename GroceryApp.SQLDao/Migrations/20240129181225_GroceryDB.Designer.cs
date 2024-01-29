@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Warczynski.Zbaszyniak.GroceryApp.SQLDao.DataAccess;
 
@@ -10,9 +11,11 @@ using Warczynski.Zbaszyniak.GroceryApp.SQLDao.DataAccess;
 namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock1.Migrations
 {
     [DbContext(typeof(GroceryContext))]
-    partial class GroceryContextModelSnapshot : ModelSnapshot
+    [Migration("20240129181225_GroceryDB")]
+    partial class GroceryDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");

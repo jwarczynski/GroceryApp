@@ -92,9 +92,14 @@ public class BLC : IDAO
         return _dao.GetApplicationUsers();
     }
 
+    public IApplicationUser? GetApplicationUser(string name)
+    {
+        throw new NotImplementedException();
+    }
+
     public IApplicationUser GetApplicationUser(int id)
     {
-        return _dao.GetApplicationUser(id);
+        return _dao.GetApplicationUser(id.ToString());
     }
 
     public IApplicationUser SaveApplicationUser(IApplicationUser user)

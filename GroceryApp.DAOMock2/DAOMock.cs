@@ -136,6 +136,11 @@ public class DAOMock : IDAO
         return _users.AsEnumerable();
     }
 
+    public IApplicationUser? GetApplicationUser(string name)
+    {
+        throw new NotImplementedException();
+    }
+
     public IApplicationUser GetApplicationUser(int id)
     {
         return _users.Where(u => u.Id == id).Single();
