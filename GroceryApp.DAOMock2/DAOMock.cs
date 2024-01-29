@@ -30,7 +30,7 @@ public class DAOMock : IDAO
         {
             new Product
             {
-                Id = 0,
+                Id = 1,
                 Name = "Pineapple",
                 Price = 4.99f,
                 Category = ProductCategory.Fruit,
@@ -41,7 +41,7 @@ public class DAOMock : IDAO
             },
             new Product
             {
-                Id = 1,
+                Id = 2,
                 Name = "Grapefruit",
                 Price = 5.99f,
                 Category = ProductCategory.Fruit,
@@ -65,12 +65,14 @@ public class DAOMock : IDAO
 
     public IGrocery SaveGrocery(IGrocery grocery)
     {
+        grocery.Id ??= _groceries.Max(g => g.Id) + 1;
         _groceries.Add(grocery);
         return grocery;
     }
 
     public IProduct SaveProduct(IProduct product)
     {
+        product.Id ??= _products.Max(p => p.Id) + 1;
         _products.Add(product);
         return product;
     }
@@ -110,17 +112,17 @@ public class DAOMock : IDAO
 
     public void RemoveProduct(IProduct product)
     {
-        throw new NotImplementedException();
+        _products.Remove(product);
     }
 
     public IGrocery GetGroceryTemplate()
     {
-        throw new NotImplementedException();
+        return new Grocery();
     }
 
     public IProduct GetProductWithGrocery(int id)
     {
-        throw new NotImplementedException();
+        return _products.FirstOrDefault(p => p.Id == id, null);
     }
 
     public IProduct GetProductTemplate()
