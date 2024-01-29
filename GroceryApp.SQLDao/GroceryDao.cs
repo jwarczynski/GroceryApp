@@ -169,7 +169,6 @@ public class GroceryDao : IDAO
     {
         var newApplicationUser = new ApplicationUser()
         {
-            Id = applicationUser.Id!.Value,
             Name = applicationUser.Name,
             Password = applicationUser.Password,
         };
@@ -200,7 +199,7 @@ public class GroceryDao : IDAO
 
     public IApplicationUser EditApplicationUser(IApplicationUser user)
     {
-        _context.Entry(_context.Users.Where(u => u.Id == user.Id).Single()).State = EntityState.Detached;
+        _context.Entry(_context.Users.Where(u => u.Name == user.Name).Single()).State = EntityState.Detached;
         var applicationUserModel = CastToApplicationUser(user);
         var updated = _context.Users.Update(applicationUserModel);
         _context.SaveChanges();
@@ -209,7 +208,7 @@ public class GroceryDao : IDAO
 
     public void DeleteApplicationUser(IApplicationUser user)
     {
-        var userToRemove = _context.Users.FirstOrDefault(u => u.Id == user.Id);
+        var userToRemove = _context.Users.FirstOrDefault(u => u.Name == user.Name);
         if (userToRemove != null)
         {
             _context.Users.Remove(userToRemove);

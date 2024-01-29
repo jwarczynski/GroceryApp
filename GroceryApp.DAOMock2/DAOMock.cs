@@ -136,31 +136,27 @@ public class DAOMock : IDAO
         return _users.AsEnumerable();
     }
 
-    public IApplicationUser? GetApplicationUser(string name)
+    public IApplicationUser GetApplicationUser(string name)
     {
-        throw new NotImplementedException();
+        return _users.Where(u => u.Name == name).Single();
     }
 
-    public IApplicationUser GetApplicationUser(int id)
+    public IApplicationUser? SaveApplicationUser(IApplicationUser user)
     {
-        return _users.Where(u => u.Id == id).Single();
-    }
-
-    public IApplicationUser SaveApplicationUser(IApplicationUser user)
-    {
+        if (_users.Where(u => u.Name == user.Name).Any()) return null;
         _users.Add(user);
         return user;
     }
 
     public IApplicationUser EditApplicationUser(IApplicationUser user)
     {
-        _users.Remove(_users.Where(u => u.Id == user.Id).Single());
+        _users.Remove(_users.Where(u => u.Name == user.Name).Single());
         _users.Add(user);
         return user;
     }
 
     public void DeleteApplicationUser(IApplicationUser user)
     {
-        _users.Remove(_users.Where(u => u.Id == user.Id).Single());
+        _users.Remove(_users.Where(u => u.Name == user.Name).Single());
     }
 }

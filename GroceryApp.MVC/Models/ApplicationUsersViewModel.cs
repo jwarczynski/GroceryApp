@@ -9,28 +9,34 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Models
         private readonly IDAO _blc;
         private readonly List<IApplicationUser> _users;
         private IApplicationUser? _user;
+        public IApplicationUser? User { get { return _user; } }
         public ApplicationUsersViewModel(IDAO blc)
         {
             _blc = blc;
             _users = blc.GetApplicationUsers().ToList();
             _user = null;
         }
-        public void RegisterUser(IApplicationUser user)
+        public void RegisterUser(string name, string password)
         {
-            var res = _blc.SaveApplicationUser(user);
+            var res = _blc.SaveApplicationUser(new ApplicationUser() { Name = name, Password = password });
             if (res != null)
             {
                 _users.Append(res);
             }
         }
-        public void DeleteUser(string name)
+        public void ChangePassword(IApplicationUser user)
         {
-            var users = _users.Where(u => u.Name == name);
-            foreach (var  user in users)
+            if (_user != null)
             {
-                _blc.DeleteApplicationUser(user);
-                _users.Remove(user);
+                _blc.EditApplicationUser(user);
             }
+        }
+        public void DeleteUser()
+        {
+            if (_user == null) return;
+            _blc.DeleteApplicationUser(_user);
+            _users.Remove(_user);
+            _user = null;
         }
         public bool LogIn(string name, string password)
         {
@@ -41,6 +47,11 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Models
                 return true;
             }
             return false;
+        }
+
+        public void LogOut()
+        {
+            _user = null;
         }
 
         public bool IsLoggedIn()
