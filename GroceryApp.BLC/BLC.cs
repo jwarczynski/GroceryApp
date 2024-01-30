@@ -26,6 +26,11 @@ public class BLC : IDAO
 
         _dao = (IDAO)Activator.CreateInstance(typeToCreate, null);
     }
+    
+    public BLC(IDAO dao)
+    {
+        _dao = dao;
+    }
 
     public IEnumerable<IGrocery> GetAllGroceries()
     {
