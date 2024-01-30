@@ -7,7 +7,7 @@ using Warczynski.Zbaszyniak.GroceryApp.SQLDao.DataAccess;
 
 #nullable disable
 
-namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock1.Migrations
+namespace Warczynski.Zbaszyniak.GroceryApp.SQLDao.Migrations
 {
     [DbContext(typeof(GroceryContext))]
     partial class GroceryContextModelSnapshot : ModelSnapshot

@@ -22,20 +22,42 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 		// GET: ApplicationUsers
 		public async Task<IActionResult> Index()
 		{
+			if(_applicationUsersViewModel.IsLoggedIn()) 
+				return RedirectToAction(nameof(Details));
 			return View(_applicationUsersViewModel.User);
 		}
 
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Index([Bind("Name,Password")] ApplicationUser applicationUser)
+        // POST: ApplicationUsers/Logout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index([Bind("Name,Password")] ApplicationUser applicationUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var isLoggedIn = _applicationUsersViewModel.LogIn(applicationUser.Name, applicationUser.Password);
+                if (isLoggedIn) return RedirectToAction(nameof(Details));
+            }
+            return View(applicationUser);
+        }
+
+        // GET: ApplicationUsers/Details
+        public async Task<IActionResult> Details()
 		{
-			if (ModelState.IsValid)
-			{
-				var isLoggedIn = _applicationUsersViewModel.LogIn(applicationUser.Name, applicationUser.Password);
-				if (isLoggedIn) RedirectToAction(nameof(Index), "HomeController");
-			}
-			return View(applicationUser);
+			return View(_applicationUsersViewModel.User);
 		}
+
+        // POST: ApplicationUsers/Logout
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout([Bind("Name,Password")] ApplicationUser applicationUser)
+        {
+            if (ModelState.IsValid)
+            {
+				_applicationUsersViewModel.LogOut();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(applicationUser);
+        }
 
 		// GET: ApplicationUsers/Create
 		public IActionResult Create()
@@ -52,7 +74,8 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_applicationUsersViewModel.RegisterUser(applicationUser.Name, applicationUser.Password);
+				var returnVal = _applicationUsersViewModel.RegisterUser(applicationUser.Name, applicationUser.Password);
+				if (returnVal) return RedirectToAction(nameof(Index), "Home");
 			}
 			return View(applicationUser);
 		}

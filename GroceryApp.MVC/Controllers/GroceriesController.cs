@@ -23,7 +23,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public async Task<IActionResult> Index(string searchString)
         {
             if(!_applicationUsersViewModel.IsLoggedIn()) 
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             _groceriesViewModel.ApplyFiltersCommand.Execute(searchString);
             return View(_groceriesViewModel);
         }
@@ -32,7 +32,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             if (id == null)
             {
                 return NotFound();
@@ -52,7 +52,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public IActionResult Create()
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             return View();
         }
 
@@ -75,7 +75,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             if (id == null)
             {
                 return NotFound();
@@ -128,7 +128,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             if (id == null)
             {
                 return NotFound();

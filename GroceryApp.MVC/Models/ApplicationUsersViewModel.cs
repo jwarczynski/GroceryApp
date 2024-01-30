@@ -14,15 +14,16 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Models
         {
             _blc = blc;
             _users = blc.GetApplicationUsers().ToList();
-            _user = null;
         }
-        public void RegisterUser(string name, string password)
+        public bool RegisterUser(string name, string password)
         {
             var res = _blc.SaveApplicationUser(new ApplicationUser() { Name = name, Password = password });
             if (res != null)
             {
                 _users.Append(res);
+                return true;
             }
+            return false;
         }
         public void ChangePassword(IApplicationUser user)
         {

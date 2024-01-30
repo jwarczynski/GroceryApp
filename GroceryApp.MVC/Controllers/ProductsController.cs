@@ -29,7 +29,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public async Task<IActionResult> Index(string searchName, ICollection<ProductCategory> searchCategories)
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             var filter = new Filter()
             {
                 Name = searchName,
@@ -43,7 +43,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             if (id == null)
             {
                 return NotFound();
@@ -63,7 +63,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public IActionResult Create()
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             var modelView = new ProductViewModel()
             {
                 Groceries = _groceriesViewModel.Groceries,
@@ -96,7 +96,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             if (id == null)
             {
                 return NotFound();
@@ -165,7 +165,7 @@ namespace Warczynski.Zbaszyniak.GroceryApp.MVC.Controllers
         public async Task<IActionResult> Delete(int? id)
         {
             if (!_applicationUsersViewModel.IsLoggedIn())
-                RedirectToAction(nameof(Index), "HomeController");
+                return RedirectToAction(nameof(Index), "ApplicationUsers");
             if (id == null)
             {
                 return NotFound();

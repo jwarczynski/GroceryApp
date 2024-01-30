@@ -13,10 +13,10 @@ internal class Program
         // Add services to the container.
         builder.Services.AddControllersWithViews();
 
-        builder.Services.AddScoped<IDAO>(sp => new BLC("GroceryApp.SQLDao.dll"));
+        builder.Services.AddSingleton<IDAO>(sp => new BLC("GroceryApp.SQLDao.dll"));
         builder.Services.AddScoped<ProductsViewModel>();
         builder.Services.AddScoped<GroceriesViewModel>();
-        builder.Services.AddScoped<ApplicationUsersViewModel>();
+        builder.Services.AddSingleton<ApplicationUsersViewModel>();
 
         var app = builder.Build();
 

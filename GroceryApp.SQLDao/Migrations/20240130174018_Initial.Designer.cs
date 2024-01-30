@@ -8,11 +8,11 @@ using Warczynski.Zbaszyniak.GroceryApp.SQLDao.DataAccess;
 
 #nullable disable
 
-namespace Warczynski.Zbaszyniak.GroceryApp.DAOMock1.Migrations
+namespace Warczynski.Zbaszyniak.GroceryApp.SQLDao.Migrations
 {
     [DbContext(typeof(GroceryContext))]
-    [Migration("20240129181225_GroceryDB")]
-    partial class GroceryDB
+    [Migration("20240130174018_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
